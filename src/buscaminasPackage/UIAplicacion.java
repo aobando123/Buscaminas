@@ -9,6 +9,7 @@ import java.awt.Button;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -94,6 +95,7 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private Map<String, JButton> listButtons;
 
 public JButton findButtontByName(String componentName, Container container){
  JButton btn;
@@ -113,6 +115,7 @@ public JButton findButtontByName(String componentName, Container container){
         int posx=10;
         int posy=10;
         int length;
+        String name;
         if(psize==5){
         length =60;
         }
@@ -123,14 +126,18 @@ public JButton findButtontByName(String componentName, Container container){
         {
             for (int j = 1; j <= psize; j++) {
                 JButton btn = new JButton();
-                btn.setName("b" + i + j);
+                name="b"+i+j;
+                btn.setName(name);
                 btn.setBackground(new java.awt.Color(255, 153, 51));
                 btn.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
                         buttonClicked(evt);
                     }
                 });
+                listButtons.put(name,btn);
                 pnJuego5.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
+
+                pnJuego5.invalidate();
                 posx+=length;
             }
             posx=10;
@@ -172,7 +179,7 @@ public JButton findButtontByName(String componentName, Container container){
 //            if(btn != null){
 //            btnName = btn.getName();
 //            }
-         btn = findButtontByName("b12", pnJuego5);
+         btn = listButtons.get("b12");
          btn.setText(btnName);
          btnName = btn.getName();
         if(SwingUtilities.isLeftMouseButton(click)){
