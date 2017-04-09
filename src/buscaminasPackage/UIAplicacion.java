@@ -9,6 +9,7 @@ import java.awt.Button;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -95,21 +96,9 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private Map<String, JButton> listButtons;
+private Map<String,JButton> buttonMap = new HashMap<String,JButton>();
 
-public JButton findButtontByName(String componentName, Container container){
- JButton btn;
- for (Component component: container.getComponents()) {
-    if (componentName.equals(component.getName()) ) {
-      if(component instanceof JButton){
-          btn= (JButton) component;
-          ((JButton) component).setText("hola");
-          return btn;
-      }
-    }
- }
- return null;
-}
+
  private void initpnJuego5(int psize){
      //comment
         int posx=10;
@@ -122,9 +111,9 @@ public JButton findButtontByName(String componentName, Container container){
         else{
             length=40;
         }
-         for(int i=1; i <= psize; i++)
+         for(int i=0; i <= psize; i++)
         {
-            for (int j = 1; j <= psize; j++) {
+            for (int j = 0; j <= psize; j++) {
                 JButton btn = new JButton();
                 name="b"+i+j;
                 btn.setName(name);
@@ -134,10 +123,8 @@ public JButton findButtontByName(String componentName, Container container){
                         buttonClicked(evt);
                     }
                 });
-                listButtons.put(name,btn);
                 pnJuego5.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
-
-                pnJuego5.invalidate();
+                buttonMap.put(name, btn);
                 posx+=length;
             }
             posx=10;
@@ -171,27 +158,39 @@ public JButton findButtontByName(String componentName, Container container){
     private void buttonClicked(java.awt.event.MouseEvent click){
             String btnName="";
              JButton btn=null;
+             //getting clicked button
              Object o = click.getSource();
-//           if(o instanceof JButton){
-//           btn = (JButton)o;
-//           }
-//            
-//            if(btn != null){
-//            btnName = btn.getName();
-//            }
-         btn = listButtons.get("b12");
-         btn.setText(btnName);
-         btnName = btn.getName();
-        if(SwingUtilities.isLeftMouseButton(click)){
+             if(o instanceof JButton){
+           btn = (JButton)o;
+           }
+            
+            if(btn != null){
+            btnName = btn.getName();
+            }
+      //left click or right click
+         if(btn.isEnabled()){
+                 if(SwingUtilities.isLeftMouseButton(click)){
             JOptionPane.showConfirmDialog(this, btnName);
+                     changeButton(btnName);
+
+
         }
         else if(SwingUtilities.isRightMouseButton(click)){
           JOptionPane.showConfirmDialog(this, "click derecho");
         }
+         }
+
     }
     
     
-//    private void getButtonName
+     private void changeButton( String pName){
+         JButton btn;
+         btn = buttonMap.get(pName);
+         btn.setText("1");
+         btn.setBackground(new java.awt.Color(255, 255,255));
+         btn.setEnabled(false);
+         btn=buttonMap.replace(pName,btn);
+     }
     
     /**
      * @param args the command line arguments
