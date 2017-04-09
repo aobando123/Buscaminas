@@ -151,7 +151,7 @@ public class Rutinas {
     static void spaceWithCero(int prow, int pcolumn) {
         int upRow = prow - 1, upColumn = pcolumn - 1, i, j;
         int limitRow = prow + 1, limitColumn = pcolumn + 1;
-        if ((upRow >= 0 && upColumn >= 0) || (limitRow < sizeMat && limitColumn < sizeMat)) {
+        if ((upRow >= 0 && upColumn >= 0) && (limitRow < sizeMat && limitColumn < sizeMat)) {
             for (i = 0; i < limitRow; i++) {
                 for (j = 0; j < limitColumn; j++) {
                     if (dashboard[i][j] == 0) {

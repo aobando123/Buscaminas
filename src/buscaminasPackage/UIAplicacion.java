@@ -5,6 +5,9 @@
  */
 package buscaminasPackage;
 
+import java.awt.Button;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -39,7 +42,6 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnJuego5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
-        prueba = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -86,14 +88,6 @@ public class UIAplicacion extends javax.swing.JFrame {
         lblquatity.setText("5");
         pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, -1, -1));
 
-        prueba.setText(" prueba");
-        prueba.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pruebaMouseClicked(evt);
-            }
-        });
-        pnJuego5.add(prueba, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, -1, -1));
-
         pnPrincipal.add(pnJuego5, "card3");
 
         getContentPane().add(pnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 390));
@@ -101,7 +95,18 @@ public class UIAplicacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+public JButton findButtontByName(String componentName, Container container){
+ JButton btn;
+ for (Component component: container.getComponents()) {
+    if (componentName.equals(component.getName()) ) {
+      if(component instanceof JButton){
+          btn= (JButton) component;
+          return btn;
+      }
+    }
+ }
+ return null;
+}
  private void initpnJuego5(int psize){
      //comment
         int posx=10;
@@ -155,26 +160,31 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
     }//GEN-LAST:event_btnDificilActionPerformed
-
-    private void pruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pruebaMouseClicked
-        // TODO add your handling code here:
-        
-        if(SwingUtilities.isLeftMouseButton(evt)){
-            JOptionPane.showConfirmDialog(this, "click izquierdo");
-        }
-        else if(SwingUtilities.isRightMouseButton(evt)){
-          JOptionPane.showConfirmDialog(this, "click derecho");
-        }
-    }//GEN-LAST:event_pruebaMouseClicked
     private void buttonClicked(java.awt.event.MouseEvent click){
-    
-           if(SwingUtilities.isLeftMouseButton(click)){
-            JOptionPane.showConfirmDialog(this, "click izquierdo");
+            String btnName="";
+             JButton btn=null;
+             Object o = click.getSource();
+//           if(o instanceof JButton){
+//           btn = (JButton)o;
+//           }
+//            
+//            if(btn != null){
+//            btnName = btn.getName();
+//            }
+         btn = findButtontByName("b12", pnJuego5);
+         btn.setText(btnName);
+         btnName = btn.getName();
+        if(SwingUtilities.isLeftMouseButton(click)){
+            JOptionPane.showConfirmDialog(this, btnName);
         }
         else if(SwingUtilities.isRightMouseButton(click)){
           JOptionPane.showConfirmDialog(this, "click derecho");
         }
     }
+    
+    
+//    private void getButtonName
+    
     /**
      * @param args the command line arguments
      */
@@ -220,6 +230,5 @@ public class UIAplicacion extends javax.swing.JFrame {
     private javax.swing.JPanel pnInicio;
     private javax.swing.JPanel pnJuego5;
     private javax.swing.JPanel pnPrincipal;
-    private javax.swing.JButton prueba;
     // End of variables declaration//GEN-END:variables
 }
