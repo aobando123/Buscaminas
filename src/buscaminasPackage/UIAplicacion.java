@@ -101,6 +101,7 @@ public JButton findButtontByName(String componentName, Container container){
     if (componentName.equals(component.getName()) ) {
       if(component instanceof JButton){
           btn= (JButton) component;
+          ((JButton) component).setText("hola");
           return btn;
       }
     }
