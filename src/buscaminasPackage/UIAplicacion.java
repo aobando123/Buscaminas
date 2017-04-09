@@ -6,8 +6,11 @@
 package buscaminasPackage;
 
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class UIAplicacion extends javax.swing.JFrame {
 
@@ -34,6 +37,9 @@ public class UIAplicacion extends javax.swing.JFrame {
         btnDificil = new javax.swing.JButton();
         lblSeleccionar = new javax.swing.JLabel();
         pnJuego5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        lblquatity = new javax.swing.JLabel();
+        prueba = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -72,6 +78,22 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnPrincipal.add(pnInicio, "card2");
 
         pnJuego5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/min.png"))); // NOI18N
+        pnJuego5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
+
+        lblquatity.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblquatity.setText("5");
+        pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, -1, -1));
+
+        prueba.setText(" prueba");
+        prueba.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pruebaMouseClicked(evt);
+            }
+        });
+        pnJuego5.add(prueba, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, -1, -1));
+
         pnPrincipal.add(pnJuego5, "card3");
 
         getContentPane().add(pnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 390));
@@ -93,17 +115,22 @@ public class UIAplicacion extends javax.swing.JFrame {
         }
          for(int i=1; i <= psize; i++)
         {
-            for(int j = 1 ; j <= psize; j++)
-            {
+            for (int j = 1; j <= psize; j++) {
                 JButton btn = new JButton();
-                btn.setName("b"+i+j);
+                btn.setName("b" + i + j);
                 btn.setBackground(new java.awt.Color(255, 153, 51));
+                btn.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        buttonClicked(evt);
+                    }
+                });
                 pnJuego5.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
                 posx+=length;
             }
             posx=10;
             posy+=length;
         }
+         lblquatity.setText(""+psize);
  
  }
         
@@ -115,8 +142,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnPrincipal.remove(pnInicio);
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
-        pnPrincipal.revalidate();
-        
+        pnPrincipal.revalidate();      
         
     }//GEN-LAST:event_btnNormalActionPerformed
 
@@ -130,6 +156,25 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnPrincipal.revalidate();
     }//GEN-LAST:event_btnDificilActionPerformed
 
+    private void pruebaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pruebaMouseClicked
+        // TODO add your handling code here:
+        
+        if(SwingUtilities.isLeftMouseButton(evt)){
+            JOptionPane.showConfirmDialog(this, "click izquierdo");
+        }
+        else if(SwingUtilities.isRightMouseButton(evt)){
+          JOptionPane.showConfirmDialog(this, "click derecho");
+        }
+    }//GEN-LAST:event_pruebaMouseClicked
+    private void buttonClicked(java.awt.event.MouseEvent click){
+    
+           if(SwingUtilities.isLeftMouseButton(click)){
+            JOptionPane.showConfirmDialog(this, "click izquierdo");
+        }
+        else if(SwingUtilities.isRightMouseButton(click)){
+          JOptionPane.showConfirmDialog(this, "click derecho");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -168,10 +213,13 @@ public class UIAplicacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDificil;
     private javax.swing.JButton btnNormal;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblquatity;
     private javax.swing.JPanel pnInicio;
     private javax.swing.JPanel pnJuego5;
     private javax.swing.JPanel pnPrincipal;
+    private javax.swing.JButton prueba;
     // End of variables declaration//GEN-END:variables
 }
