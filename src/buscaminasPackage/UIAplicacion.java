@@ -5,10 +5,10 @@
  */
 package buscaminasPackage;
 
-/**
- *
- * @author Adrian
- */
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
 public class UIAplicacion extends javax.swing.JFrame {
 
     /**
@@ -33,7 +33,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         btnNormal = new javax.swing.JButton();
         btnDificil = new javax.swing.JButton();
         lblSeleccionar = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pnJuego5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,6 +58,11 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         btnDificil.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnDificil.setText("Difìcil");
+        btnDificil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDificilActionPerformed(evt);
+            }
+        });
         pnInicio.add(btnDificil, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 150, 70));
 
         lblSeleccionar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -66,18 +71,64 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         pnPrincipal.add(pnInicio, "card2");
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        pnPrincipal.add(jPanel1, "card3");
+        pnJuego5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnPrincipal.add(pnJuego5, "card3");
 
         getContentPane().add(pnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+ private void initpnJuego5(int psize){
+     
+        int posx=10;
+        int posy=10;
+        int length;
+        if(psize==5){
+        length =60;
+        }
+        else{
+            length=40;
+        }
+         for(int i=1; i <= psize; i++)
+        {
+            for(int j = 1 ; j <= psize; j++)
+            {
+                JButton btn = new JButton();
+                btn.setName("b"+i+j);
+                btn.setBackground(new java.awt.Color(255, 153, 51));
+                pnJuego5.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
+                posx+=length;
+            }
+            posx=10;
+            posy+=length;
+        }
+ 
+ }
+        
+         
     private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
         // TODO add your handling code here:
+        Rutinas.initDashboard(5);
+        initpnJuego5(5);
+        pnPrincipal.remove(pnInicio);
+        pnPrincipal.add(pnJuego5);
+        pnPrincipal.repaint();
+        pnPrincipal.revalidate();
+        
         
     }//GEN-LAST:event_btnNormalActionPerformed
+
+    private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
+        // TODO add your handling code here:
+        Rutinas.initDashboard(8);
+        initpnJuego5(8);
+        pnPrincipal.remove(pnInicio);
+        pnPrincipal.add(pnJuego5);
+        pnPrincipal.repaint();
+        pnPrincipal.revalidate();
+    }//GEN-LAST:event_btnDificilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,10 +168,10 @@ public class UIAplicacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDificil;
     private javax.swing.JButton btnNormal;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnInicio;
+    private javax.swing.JPanel pnJuego5;
     private javax.swing.JPanel pnPrincipal;
     // End of variables declaration//GEN-END:variables
 }
