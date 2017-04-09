@@ -81,7 +81,7 @@ public class UIAplicacion extends javax.swing.JFrame {
 
 
  private void initpnJuego5(int psize){
-     
+     //comment
         int posx=10;
         int posy=10;
         int length;
