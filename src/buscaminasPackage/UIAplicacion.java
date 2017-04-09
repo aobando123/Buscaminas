@@ -96,26 +96,23 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private Map<String,JButton> buttonMap = new HashMap<String,JButton>();
+private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
-
- private void initpnJuego5(int psize){
-     //comment
-        int posx=10;
-        int posy=10;
+    private void initpnJuego5(int psize) {
+        //comment
+        int posx = 10;
+        int posy = 10;
         int length;
         String name;
-        if(psize==5){
-        length =60;
+        if (psize == 5) {
+            length = 60;
+        } else {
+            length = 40;
         }
-        else{
-            length=40;
-        }
-         for(int i=0; i <= psize; i++)
-        {
+        for (int i = 0; i <= psize; i++) {
             for (int j = 0; j <= psize; j++) {
                 JButton btn = new JButton();
-                name="b"+i+j;
+                name = "b" + i + j;
                 btn.setName(name);
                 btn.setBackground(new java.awt.Color(255, 153, 51));
                 btn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,16 +122,16 @@ private Map<String,JButton> buttonMap = new HashMap<String,JButton>();
                 });
                 pnJuego5.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
                 buttonMap.put(name, btn);
-                posx+=length;
+                posx += length;
             }
-            posx=10;
-            posy+=length;
+            posx = 10;
+            posy += length;
         }
-         lblquatity.setText(""+psize);
- 
- }
-        
-         
+        lblquatity.setText("" + psize);
+
+    }
+
+
     private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
         // TODO add your handling code here:
         Rutinas.initDashboard(5);
@@ -142,8 +139,8 @@ private Map<String,JButton> buttonMap = new HashMap<String,JButton>();
         pnPrincipal.remove(pnInicio);
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
-        pnPrincipal.revalidate();      
-        
+        pnPrincipal.revalidate();
+
     }//GEN-LAST:event_btnNormalActionPerformed
 
     private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
@@ -155,43 +152,40 @@ private Map<String,JButton> buttonMap = new HashMap<String,JButton>();
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
     }//GEN-LAST:event_btnDificilActionPerformed
-    private void buttonClicked(java.awt.event.MouseEvent click){
-            String btnName="";
-             JButton btn=null;
-             //getting clicked button
-             Object o = click.getSource();
-             if(o instanceof JButton){
-           btn = (JButton)o;
-           }
-            
-            if(btn != null){
+    private void buttonClicked(java.awt.event.MouseEvent click) {
+        String btnName = "";
+        JButton btn = null;
+        //getting clicked button
+        Object o = click.getSource();
+        if (o instanceof JButton) {
+            btn = (JButton) o;
+        }
+
+        if (btn != null) {
             btnName = btn.getName();
+        }
+        //left click or right click
+        if (btn.isEnabled()) {
+            if (SwingUtilities.isLeftMouseButton(click)) {
+                JOptionPane.showConfirmDialog(this, btnName);
+                changeButton(btnName);
+
+            } else if (SwingUtilities.isRightMouseButton(click)) {
+                JOptionPane.showConfirmDialog(this, "click derecho");
             }
-      //left click or right click
-         if(btn.isEnabled()){
-                 if(SwingUtilities.isLeftMouseButton(click)){
-            JOptionPane.showConfirmDialog(this, btnName);
-                     changeButton(btnName);
-
-
         }
-        else if(SwingUtilities.isRightMouseButton(click)){
-          JOptionPane.showConfirmDialog(this, "click derecho");
-        }
-         }
 
     }
-    
-    
-     private void changeButton( String pName){
-         JButton btn;
-         btn = buttonMap.get(pName);
-         btn.setText("1");
-         btn.setBackground(new java.awt.Color(255, 255,255));
-         btn.setEnabled(false);
-         btn=buttonMap.replace(pName,btn);
-     }
-    
+
+    private void changeButton(String pName) {
+        JButton btn;
+        btn = buttonMap.get(pName);
+        btn.setText("1");
+        btn.setBackground(new java.awt.Color(255, 255, 255));
+        btn.setEnabled(false);
+        btn = buttonMap.replace(pName, btn);
+    }
+
     /**
      * @param args the command line arguments
      */
