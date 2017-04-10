@@ -28,6 +28,7 @@ public class Rutinas {
     private static List<String> listSpacesWithCero = new ArrayList();
     private static List<String> listNumbersAround = new ArrayList();
     private static List<String> listAllElements = new ArrayList();
+    private static List<String> listMines = new ArrayList();
     private static boolean isFirstCero = true;
 
     /**
@@ -247,15 +248,14 @@ public class Rutinas {
         }
     }
     
-    static String[] getAllMines(){
-        String[]minesPosition = new String[sizeMat];
-        int row=0, column=0,cont=0;
+    static void findAllMines(){
+       
+        int row = 0, column = 0,cont = 0;
         while (row < sizeMat) {
             if (column < sizeMat)
             {
                 if(dashboard[row][column] == 9){
-                minesPosition[cont]= "b" + row + column;
-                cont++;
+                listMines.add("b" + row + column);
                 }
                 column++;
             } else {
@@ -263,8 +263,6 @@ public class Rutinas {
                 row++;
             }
         }
-        
-        return minesPosition;
     }
     
     static boolean isLoser(){
@@ -283,6 +281,9 @@ public class Rutinas {
     }
     static List<String> getListToShowNumbers(){
         return listNumbersAround;
+    }
+    static List<String> getAllMines(){
+        
     }
     static void cleanAllLists(){
         listSpacesWithCero.clear();
