@@ -5,12 +5,12 @@
  */
 package buscaminasPackage;
 
-import java.awt.Button;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.GridLayout;
+import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -19,9 +19,9 @@ import javax.swing.SwingUtilities;
 
 public class UIAplicacion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form UIAplicacion
-     */
+    private static List<String> elementsToShow = new ArrayList();
+    private static List<String> elementsToShowNumbers = new ArrayList();
+
     public UIAplicacion() {
         initComponents();
     }
@@ -140,7 +140,14 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
-
+        int valueDas = 0;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                valueDas = Rutinas.mostrarAyuda(i, j);
+                System.out.print(" " + valueDas + " ");
+            }
+            System.out.println(" ");
+        }
     }//GEN-LAST:event_btnNormalActionPerformed
 
     private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
@@ -151,9 +158,19 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
+        int valueDas = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                valueDas = Rutinas.mostrarAyuda(i, j);
+                System.out.print(" " + valueDas + " ");
+            }
+            System.out.println(" ");
+        }
     }//GEN-LAST:event_btnDificilActionPerformed
     private void buttonClicked(java.awt.event.MouseEvent click) {
         String btnName = "";
+
+        elementsToShow.clear();
         JButton btn = null;
         //getting clicked button
         Object o = click.getSource();
@@ -167,8 +184,17 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         //left click or right click
         if (btn.isEnabled()) {
             if (SwingUtilities.isLeftMouseButton(click)) {
-                JOptionPane.showConfirmDialog(this, btnName);
-                changeButton(btnName);
+                int valueBehindButton = Rutinas.checkBackDashboard(btnName);
+                if (valueBehindButton == 0) {
+                    showNearZeroButton(btnName);
+                }
+                else if(valueBehindButton != 9){
+                changeButton(btnName, valueBehindButton);              
+                }
+                else{
+                // pierdo
+                }
+
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
                 JOptionPane.showConfirmDialog(this, "click derecho");
@@ -177,13 +203,50 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
     }
 
-    private void changeButton(String pName) {
+    private void showNearZeroButton(String pbtnName) {
+        int row = 0, column = 0;
+        row = Character.getNumericValue(pbtnName.charAt(1));
+        column = Character.getNumericValue(pbtnName.charAt(2));
+        Rutinas.spaceWithCero(row, column);
+        elementsToShow = Rutinas.getListToShowCero();
+        elementsToShowNumbers = Rutinas.getListToShowNumbers();
+        for (String element : elementsToShow) {
+            changeButton(element, 0);
+        }
+        for (String element : elementsToShowNumbers) {
+            changeButton(element, 0);
+        }
+        Rutinas.cleanAllLists();
+    }
+
+    private void changeButton(String pName, int pvalor) {
         JButton btn;
+        String imgName;
         btn = buttonMap.get(pName);
-        btn.setText("1");
+        imgName = chooseImage(0);
+        btn.setIcon(getResizeImage(imgName));
         btn.setBackground(new java.awt.Color(255, 255, 255));
         btn.setEnabled(false);
-        btn = buttonMap.replace(pName, btn);
+        buttonMap.replace(pName, btn);
+    }
+
+    private String chooseImage(int pvalue) {
+        String nameImage;
+        if (pvalue == 9) {
+            nameImage = "mina.png";
+        } else {
+            nameImage = pvalue + ".png";
+        }
+        return nameImage;
+    }
+
+    private ImageIcon getResizeImage(String imageName) {
+        ImageIcon icoDefault = new ImageIcon(getClass().getResource("/buscaminasPackage/" + imageName));
+        Image imageDefault = icoDefault.getImage();
+        Image resizeImage = imageDefault.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        ImageIcon resizeIcon = new ImageIcon(resizeImage);
+
+        return resizeIcon;
     }
 
     /**

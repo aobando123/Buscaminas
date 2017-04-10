@@ -24,8 +24,11 @@ public class Rutinas {
     private static int[][] dashboard;
     static int cantMines;
     static int sizeMat;
+    static int spacesToWin;
     private static List<String> listSpacesWithCero = new ArrayList();
     private static List<String> listNumbersAround = new ArrayList();
+    private static List<String> listAllElements = new ArrayList();
+    private static List<String> listMines = new ArrayList();
     private static boolean isFirstCero = true;
 
     /**
@@ -36,19 +39,15 @@ public class Rutinas {
         dashboard = new int[size][size];
         cantMines = size;
         sizeMat = size;
+        spacesToWin = (sizeMat *sizeMat)-cantMines;
         generateMines();
         trackMine();
     }
 
     //Clase generada solo para ver la matriz
-    public static void main(String[] args) throws IOException {
-        initDashboard(5);
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                System.out.print(" " + dashboard[i][j] + " ");
-            }
-            System.out.println(" ");
-        }
+    public static int mostrarAyuda(int i, int j)  {
+             return dashboard[i][j];
+      
     }
 
     /**
@@ -57,7 +56,7 @@ public class Rutinas {
      * nivel de dificultatd y generando posiciones aleatorias dentro de la
      * matriz
      */
-    static void generateMines() {
+    private static void generateMines() {
         Random ran = new Random();
         int row, column, mines = cantMines;
         boolean isDuplicate;
@@ -80,7 +79,7 @@ public class Rutinas {
      * @param pcolumn Posiscion en columna
      * @return Devuelve true si ya es una posicion duplicada
      */
-    static boolean insertMine(int prow, int pcolumn) {
+    private static boolean insertMine(int prow, int pcolumn) {
         if (dashboard[prow][pcolumn] != 9) {
             dashboard[prow][pcolumn] = 9;
             return false;
@@ -94,23 +93,20 @@ public class Rutinas {
      * encuentra se llama a la funcion addSpaceNear, para generar la cantidad de
      * minas alrededor de un boton
      */
-    static void trackMine() {
+    private static void trackMine() {
         int row = sizeMat - 1;
         int column = sizeMat - 1;
-        while (row >= 0) {//5>0
-            //logica de la minas
-            if (dashboard[row][column] == 9) 
-                addSpaceNear(row, column);
-            
-            //define posicion fila, columna
-            if (column != 0)//5!=0
+        while (row >= 0) {
+            if (column >= 0)
             {
+                if(dashboard[row][column] == 9)
+                    addSpaceNear(row,column);
+                    
                 column--;
             } else {
-                column = 4;
+                column = sizeMat - 1;
                 row--;
             }
-
         }
     }
 
@@ -122,7 +118,7 @@ public class Rutinas {
      * @param prow Paremetro recivido que representa la fila
      * @param pcolumn Paremetro recibido que representa la columna
      */
-    static void addSpaceNear(int prow, int pcolumn) {
+     private static void addSpaceNear(int prow, int pcolumn) {
         int spacecolumn = pcolumn - 1;
         int spacerow = prow - 1;
         int cont = 0;
@@ -133,14 +129,16 @@ public class Rutinas {
                     && dashboard[spacerow][spacecolumn] != 9) {
                 dashboard[spacerow][spacecolumn] += 1;;
             }
-            spacecolumn += 1;
+            spacecolumn++;
             cont++;
             if (cont == 3) {
+                cont = 0;
                 spacerow += 1;
                 spacecolumn -= 3;
             }
         }
     }
+    
     /***
      * Procedimiento; Se encarga de rastrear todo los elementos cuando se hace click
      * a un espacio en cero, almacenando en listas globales los elementos a mostrar
@@ -148,17 +146,26 @@ public class Rutinas {
      * @param prow Parametro de posicion en fila del elemento que tiene cero
      * @param pcolumn Parametro de posicion coulmna que tiene cero
      */
-    static void spaceWithCero(int prow, int pcolumn) {
+    public static void spaceWithCero(int prow, int pcolumn) {
         int upRow = prow - 1, upColumn = pcolumn - 1, i, j;
         int limitRow = prow + 1, limitColumn = pcolumn + 1;
-        if ((upRow >= 0 && upColumn >= 0) && (limitRow < sizeMat && limitColumn < sizeMat)) {
-            for (i = 0; i < limitRow; i++) {
-                for (j = 0; j < limitColumn; j++) {
-                    if (dashboard[i][j] == 0) {
-                        addElementCero(i, j);
-                    } else
-                    {
+        
+        if(limitRow >= sizeMat)
+            limitRow = prow;
+                  
+        if(limitColumn >= sizeMat)
+            limitColumn = pcolumn;
+        
+            for (i = upRow; i <= limitRow; i++) {
+                for (j = upColumn; j <= limitColumn; j++) {
+                    if ((i >= 0 && j >= 0)) {
+                        if (dashboard[i][j] == 0) 
+                        {
+                            addElementCero(i, j);
+                        } else
+                        {
                         addElemenNumber(i, j);
+                        }
                     }
                 }
             }
@@ -167,43 +174,104 @@ public class Rutinas {
                 isFirstCero = false;
                 checkNeihgbor();
             }
-        }
-    }
+     }
+    
     /***
      * Procedimiento que se encarga de agregar los elementos con cero dentro de la lista
      * @param prow Parametro de posicion en fila del elemento que tiene cero
      * @param pcolumn Parametro de posicion coulmna que tiene cero
      */
-    static void addElementCero(int prow, int pcolum) {
+    private static void addElementCero(int prow, int pcolum) {
         String butonToShow;
         butonToShow = "b" + prow + pcolum;
         boolean isAlreadyInserted = listSpacesWithCero.contains(butonToShow);
-        if (!isAlreadyInserted) 
-            listSpacesWithCero.add(butonToShow);     
+        if (!isAlreadyInserted)
+        { 
+            listSpacesWithCero.add(butonToShow); 
+            spacesToWin--;
+        }   
     }
+    
     /***
      * Procedimiento que inserta los numeros alrededor de los espacios en cero 
      * @param prow Parametro de posicion en fila del elemento que tiene cero
      * @param pcolumn Parametro de posicion coulmna que tiene cero
      */
-    static void addElemenNumber(int prow, int pcolum) {
+    private static void addElemenNumber(int prow, int pcolum) {
         String butonToShow;
         butonToShow = "b" + prow + pcolum;
         boolean isAlreadyInserted = listNumbersAround.contains(butonToShow);
-        if (!isAlreadyInserted) 
+        if (!isAlreadyInserted)
+        {
             listNumbersAround.add(butonToShow);  
+            spacesToWin--;
+        }
     }
+    
     /***
      * Pocedimiento que genera vuelve a llamar a la funcion para seguir averiguando
      * si hay mas elementos con ceros
      */
-    static void checkNeihgbor() {
-        int row, column;
-        for (String element : listSpacesWithCero) {
-            row = Character.getNumericValue(element.charAt(1));
-            column = Character.getNumericValue(element.charAt(2));
+    private static void checkNeihgbor() {
+        int row, column, i, limit = listSpacesWithCero.size();
+        for(i = 0; i < limit ; i++){
+            row = Character.getNumericValue(listSpacesWithCero.get(i).charAt(1));
+            column = Character.getNumericValue(listSpacesWithCero.get(i).charAt(2));
             spaceWithCero(row, column);
+            limit = listSpacesWithCero.size();
         }
-        isFirstCero = false;
+        isFirstCero = true;
     }
+    
+    /***
+     *Funcion que retora si el jugador logra ganar la partida 
+     * @return 
+     */
+    static boolean isWinner(){
+        return spacesToWin == 0;
+    }
+    
+    static void giveUpPlay(){
+        int row = sizeMat - 1;
+        int column = sizeMat - 1;
+        String buttonToShow;
+        while (row >= 0) {
+            if (column != 0)
+            {
+                buttonToShow = "b" + row + column;
+                
+                column--;
+            } else {
+                column = sizeMat - 1;
+                row--;
+            }
+        }
+    }
+    
+    static void getAllMines(){
+        
+    }
+    
+    static boolean isLoser(){
+        return true;
+    }
+    
+    static int checkBackDashboard(String btnName){
+        int row = Character.getNumericValue(btnName.charAt(1));
+        int  column = Character.getNumericValue(btnName.charAt(2));
+        int valueDashboard = dashboard[row][column];
+        return valueDashboard;
+    }
+    
+    static List<String> getListToShowCero(){
+        return listSpacesWithCero;
+    }
+    static List<String> getListToShowNumbers(){
+        return listNumbersAround;
+    }
+    static void cleanAllLists(){
+        listSpacesWithCero.clear();
+        listNumbersAround.clear();
+    }
+    
 }
