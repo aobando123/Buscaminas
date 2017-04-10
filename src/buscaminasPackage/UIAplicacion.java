@@ -109,8 +109,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         } else {
             length = 40;
         }
-        for (int i = 0; i <= psize; i++) {
-            for (int j = 0; j <= psize; j++) {
+        for (int i = 0; i < psize; i++) {
+            for (int j = 0; j < psize; j++) {
                 JButton btn = new JButton();
                 name = "b" + i + j;
                 btn.setName(name);
@@ -167,6 +167,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.out.println(" ");
         }
     }//GEN-LAST:event_btnDificilActionPerformed
+  
     private void buttonClicked(java.awt.event.MouseEvent click) {
         String btnName = "";
 
@@ -204,7 +205,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
 
     private void showNearZeroButton(String pbtnName) {
-        int row = 0, column = 0;
+        int row = 0, column = 0, valueBtn =0;
         row = Character.getNumericValue(pbtnName.charAt(1));
         column = Character.getNumericValue(pbtnName.charAt(2));
         Rutinas.spaceWithCero(row, column);
@@ -214,7 +215,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             changeButton(element, 0);
         }
         for (String element : elementsToShowNumbers) {
-            changeButton(element, 0);
+            valueBtn = Rutinas.checkBackDashboard(element);
+            changeButton(element, valueBtn);
         }
         Rutinas.cleanAllLists();
     }
@@ -223,7 +225,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         JButton btn;
         String imgName;
         btn = buttonMap.get(pName);
-        imgName = chooseImage(0);
+        imgName = chooseImage(pvalor);
         btn.setIcon(getResizeImage(imgName));
         btn.setBackground(new java.awt.Color(255, 255, 255));
         btn.setEnabled(false);
@@ -233,7 +235,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private String chooseImage(int pvalue) {
         String nameImage;
         if (pvalue == 9) {
-            nameImage = "mina.png";
+            nameImage = "9.png";
         } else {
             nameImage = pvalue + ".png";
         }
