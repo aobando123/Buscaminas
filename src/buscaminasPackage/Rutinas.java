@@ -250,11 +250,11 @@ public class Rutinas {
     static String[] getAllMines(){
         String[]minesPosition = new String[sizeMat];
         int row=0, column=0,cont=0;
-        while (row < 5) {
-            if (column < 5)
+        while (row < sizeMat) {
+            if (column < sizeMat)
             {
                 if(dashboard[row][column] == 9){
-                minesPosition[cont]="b"+row+column;
+                minesPosition[cont]= "b" + row + column;
                 cont++;
                 }
                 column++;

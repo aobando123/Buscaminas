@@ -196,13 +196,13 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                      for (int cont = 0; cont < Rutinas.getAllMines().length; cont++) {
                         changeButton(Rutinas.getAllMines()[cont],9);
                     }
-                    JOptionPane.showMessageDialog(this, "Ha perdido");
+                    JOptionPane.showMessageDialog(this, "Lo siento, has perdido");
                     System.exit(0);
                     //todo: quitar el exit y cambiarlo por un reinicio o
                     //por un mensaje que le de opcion de reiniciar o salir
                 }
                 if(Rutinas.isWinner()){
-                 JOptionPane.showMessageDialog(this, "Ha ganado");
+                 JOptionPane.showMessageDialog(this, "Felicidades! Ha ganado");
                 }
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
