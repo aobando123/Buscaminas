@@ -257,8 +257,6 @@ public class Rutinas {
                 minesPosition[cont]="b"+row+column;
                 cont++;
                 }
-
-                    
                 column++;
             } else {
                 column = 0;
