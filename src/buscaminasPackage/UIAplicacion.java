@@ -190,12 +190,20 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                     showNearZeroButton(btnName);
                 }
                 else if(valueBehindButton != 9){
-                changeButton(btnName, valueBehindButton);              
+                changeButton(btnName, valueBehindButton);
                 }
                 else{
-                // pierdo
+                     for (int cont = 0; cont < Rutinas.getAllMines().length; cont++) {
+                        changeButton(Rutinas.getAllMines()[cont],9);
+                    }
+                    JOptionPane.showMessageDialog(this, "Ha perdido");
+                    System.exit(0);
+                    //todo: quitar el exit y cambiarlo por un reinicio o
+                    //por un mensaje que le de opcion de reiniciar o salir
                 }
-
+                if(Rutinas.isWinner()){
+                 JOptionPane.showMessageDialog(this, "Ha ganado");
+                }
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
                 String lastLetter = btn.getName().substring(btn.getName().length()-1);
@@ -221,10 +229,12 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         elementsToShowNumbers = Rutinas.getListToShowNumbers();
         for (String element : elementsToShow) {
             changeButton(element, 0);
+            
         }
         for (String element : elementsToShowNumbers) {
             valueBtn = Rutinas.checkBackDashboard(element);
             changeButton(element, valueBtn);
+            
         }
         Rutinas.cleanAllLists();
     }
@@ -234,35 +244,41 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         String imgName,bName;
         bName = pName.substring(0, 3);
         btn = buttonMap.get(bName);
+        if(btn.isEnabled()){
+        btn = setImage(btn, pvalor);
         btn.setName(pName);
-        if(pvalor<10){
-        imgName = chooseImage(pvalor);
-        btn.setDisabledIcon(getResizeImage(imgName));
-        btn.setBackground(new java.awt.Color(255, 255, 255));
-        btn.setEnabled(false);
-        }
-        else{
-        if(pvalor==10){
-        if("0".equals(lblquatity.getText())){
-        JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
-        }
-        else{
-        lblquatity.setText(""+Rutinas.sustractMines());
-        imgName = chooseImage(pvalor);
-        btn.setIcon(getResizeImage(imgName));
-        }
-        
-        }
-        else{
-            btn.setIcon(null);
-            lblquatity.setText(""+Rutinas.addMines());
-        }
-        }
-       
-       
-        
-
         buttonMap.replace(bName, btn);
+       
+        }
+
+    }
+    
+    private JButton setImage(JButton btn, int pvalor) {
+        String imgName;
+
+        if (pvalor < 10) {
+            imgName = chooseImage(pvalor);
+            btn.setDisabledIcon(getResizeImage(imgName));
+            btn.setBackground(new java.awt.Color(255, 255, 255));
+            btn.setEnabled(false);
+             Rutinas.substractSpacesToWin();
+        } else {
+            if (pvalor == 10) {
+                if ("0".equals(lblquatity.getText())) {
+                    JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
+                } else {
+                    lblquatity.setText("" + Rutinas.sustractMines());
+                    imgName = chooseImage(pvalor);
+                    btn.setIcon(getResizeImage(imgName));
+                }
+
+            } else {
+                btn.setIcon(null);
+                lblquatity.setText("" + Rutinas.addMines());
+            }
+        }
+        
+        return btn;
     }
 
     private String chooseImage(int pvalue) {
