@@ -198,7 +198,15 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
-                JOptionPane.showConfirmDialog(this, "click derecho");
+                String lastLetter = btn.getName().substring(btn.getName().length()-1);
+               if("f".equals(btn.getName().substring(btn.getName().length()-1))){
+               btnName = btnName.substring(0, 3);
+               changeButton(btnName, 11);
+               }
+               else{
+               btnName=btnName+"f";
+               changeButton(btnName, 10);
+               }
             }
         }
 
@@ -223,29 +231,68 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
     private void changeButton(String pName, int pvalor) {
         JButton btn;
-        String imgName;
-        btn = buttonMap.get(pName);
+        String imgName,bName;
+        bName = pName.substring(0, 3);
+        btn = buttonMap.get(bName);
+        btn.setName(pName);
+        if(pvalor<10){
         imgName = chooseImage(pvalor);
-        btn.setIcon(getResizeImage(imgName));
+        btn.setDisabledIcon(getResizeImage(imgName));
         btn.setBackground(new java.awt.Color(255, 255, 255));
         btn.setEnabled(false);
-        buttonMap.replace(pName, btn);
+        }
+        else{
+        if(pvalor==10){
+        if("0".equals(lblquatity.getText())){
+        JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
+        }
+        else{
+        lblquatity.setText(""+Rutinas.sustractMines());
+        imgName = chooseImage(pvalor);
+        btn.setIcon(getResizeImage(imgName));
+        }
+        
+        }
+        else{
+            btn.setIcon(null);
+            lblquatity.setText(""+Rutinas.addMines());
+        }
+        }
+       
+       
+        
+
+        buttonMap.replace(bName, btn);
     }
 
     private String chooseImage(int pvalue) {
         String nameImage;
         if (pvalue == 9) {
             nameImage = "9.png";
-        } else {
+        }
+        else if(pvalue==10) {
+            nameImage= "flag.png";
+        }
+        else{
             nameImage = pvalue + ".png";
         }
         return nameImage;
     }
 
-    private ImageIcon getResizeImage(String imageName) {
+    private ImageIcon getResizeImage(String imageName) 
+    {
+        int width, height;
+        if(Rutinas.getDashboardSize()==5){
+        width=45;
+        height = 45;
+        }
+        else {
+        width=30;
+        height = 30;
+        }
         ImageIcon icoDefault = new ImageIcon(getClass().getResource("/buscaminasPackage/" + imageName));
         Image imageDefault = icoDefault.getImage();
-        Image resizeImage = imageDefault.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        Image resizeImage = imageDefault.getScaledInstance(width,height, Image.SCALE_SMOOTH);
         ImageIcon resizeIcon = new ImageIcon(resizeImage);
 
         return resizeIcon;

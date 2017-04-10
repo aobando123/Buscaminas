@@ -273,5 +273,16 @@ public class Rutinas {
         listSpacesWithCero.clear();
         listNumbersAround.clear();
     }
+    static int getDashboardSize(){
+    return sizeMat;
+    }
     
+    static int sustractMines(){
+    cantMines--;
+    return cantMines;
+    }
+    static int addMines(){
+    cantMines++;
+    return cantMines;
+    }
 }
