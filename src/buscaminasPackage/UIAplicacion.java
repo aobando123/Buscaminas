@@ -44,6 +44,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnJuego5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -83,12 +84,18 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         pnJuego5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/min.png"))); // NOI18N
-        pnJuego5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        pnJuego5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 120, 120));
 
         lblquatity.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblquatity.setText("5");
-        pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, -1, -1));
+        pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
+
+        jButton1.setText("jButton1");
+        pnJuego5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, -1));
 
         pnPrincipal.add(pnJuego5, "card3");
 
@@ -361,6 +368,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDificil;
     private javax.swing.JButton btnNormal;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
