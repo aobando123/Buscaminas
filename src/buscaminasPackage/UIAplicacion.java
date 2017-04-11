@@ -6,10 +6,13 @@
 package buscaminasPackage;
 
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -360,6 +363,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     
     private void addToRecords(){
         String playerName;
+        boolean isCompleted;
         Object[] options1 = { "Agregar Nombre", "Volver A Jugar", "Salir" };
         JPanel panel = new JPanel();
         panel.add(new JLabel("Digite el nombre del ganador \n"));
@@ -370,8 +374,15 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         options1, null);
             if (result == JOptionPane.YES_OPTION) 
             {
-                numberOfClicks++;
                 playerName = textField.getText();
+            try 
+            {
+                isCompleted = Rutinas.serializeWinner(numberOfClicks, playerName);
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
             }
             else if(result == JOptionPane.YES_NO_CANCEL_OPTION)
             {

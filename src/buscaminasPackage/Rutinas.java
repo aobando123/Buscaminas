@@ -9,6 +9,9 @@
 package buscaminasPackage;
 
 //Librerias Utilizadas
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -348,4 +351,20 @@ public class Rutinas {
     return spacesToWin;
     }
     
+    static boolean serializeWinner(int pnumClicks, String pplayerName) throws IOException{
+        File file = new File("Records.txt");
+        //Create the file
+        if (file.createNewFile()){
+
+        }
+        else
+        {
+ 
+        }
+         //Write Content
+        FileWriter writer = new FileWriter(file);
+        writer.write(pplayerName +" " + pnumClicks);
+        writer.close();
+        return true;
+    }
 }
