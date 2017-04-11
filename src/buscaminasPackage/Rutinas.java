@@ -249,7 +249,7 @@ public class Rutinas {
     }
     
     static void findAllMines(){
-       
+     
         int row = 0, column = 0,cont = 0;
         while (row < sizeMat) {
             if (column < sizeMat)
@@ -283,7 +283,7 @@ public class Rutinas {
         return listNumbersAround;
     }
     static List<String> getAllMines(){
-        
+        return listMines;
     }
     static void cleanAllLists(){
         listSpacesWithCero.clear();

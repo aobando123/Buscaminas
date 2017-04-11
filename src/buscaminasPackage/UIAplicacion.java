@@ -170,10 +170,10 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
   
     private void buttonClicked(java.awt.event.MouseEvent click) {
         String btnName = "";
-
+        elementsToShowNumbers.clear();
         elementsToShow.clear();
         JButton btn = null;
-        //getting clicked button
+        //Obteniendo el Buton clickeado
         Object o = click.getSource();
         if (o instanceof JButton) {
             btn = (JButton) o;
@@ -190,12 +190,12 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                     showNearZeroButton(btnName);
                 }
                 else if(valueBehindButton != 9){
-                changeButton(btnName, valueBehindButton);
+                    changeButton(btnName, valueBehindButton);
                 }
-                else{
-                     for (int cont = 0; cont < Rutinas.getAllMines().length; cont++) {
-                        changeButton(Rutinas.getAllMines()[cont],9);
-                    }
+                else
+                {
+                    Rutinas.findAllMines();
+                    showAllMines();
                     JOptionPane.showMessageDialog(this, "Lo siento, has perdido");
                     System.exit(0);
                     //todo: quitar el exit y cambiarlo por un reinicio o
@@ -237,6 +237,15 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             
         }
         Rutinas.cleanAllLists();
+    }
+    
+    private void showAllMines(){
+        int valueBtn;
+        elementsToShowNumbers = Rutinas.getAllMines();
+        for (String element : elementsToShowNumbers) {
+            valueBtn = Rutinas.checkBackDashboard(element);
+            changeButton(element, valueBtn);
+        }
     }
 
     private void changeButton(String pName, int pvalor) {
