@@ -230,7 +230,10 @@ public class Rutinas {
     static boolean isWinner(){
         return spacesToWin == 0;
     }
-    
+    /***
+     * Procedimiento: Que LLena toda las lista con todos los elelementos del
+     * tablero, lo cual significa que el jugador se rinde
+     */
     static void giveUpPlay(){
         int row = sizeMat - 1;
         int column = sizeMat - 1;
@@ -247,7 +250,9 @@ public class Rutinas {
             }
         }
     }
-    
+    /***
+     * Procedimieto: Llena la lista con todas las minas del tablero
+     */
     static void findAllMines(){
      
         int row = 0, column = 0,cont = 0;
@@ -264,44 +269,79 @@ public class Rutinas {
             }
         }
     }
-    
+    /***
+     *Funcion: Retorna true sin el jugador se rinde 
+     * @return 
+     */
     static boolean isLoser(){
         return true;
     }
-    
+    /***
+     * Funcion: Retorna el valor debajo de la matriz, equivalente 
+     * @param btnName Nombre del boton a analizar
+     * @return 
+     */
     static int checkBackDashboard(String btnName){
         int row = Character.getNumericValue(btnName.charAt(1));
         int  column = Character.getNumericValue(btnName.charAt(2));
         int valueDashboard = dashboard[row][column];
         return valueDashboard;
     }
-    
+    /***
+     * Funcion: Retorna la lista de elementos a mostrar
+     * @return 
+     */
     static List<String> getListToShowCero(){
         return listSpacesWithCero;
     }
+    /***
+     * Funcion: Retorna la lista de elementos a mostrar
+     * @return 
+     */
     static List<String> getListToShowNumbers(){
         return listNumbersAround;
     }
+    /***
+     * Funcion: Rertona la lista con todas las minas
+     * @return 
+     */
     static List<String> getAllMines(){
         return listMines;
     }
+    /***
+     * Limpia las listas
+     */
     static void cleanAllLists(){
         listSpacesWithCero.clear();
         listNumbersAround.clear();
     }
+    /***
+     * Funcion: Retorna el tamaño de la matriz 
+     * @return 
+     */
     static int getDashboardSize(){
     return sizeMat;
     }
-    
+    /***
+     * Funcion: resta minas y retorna la cantodad
+     * @return 
+     */
     static int sustractMines(){
     cantMines--;
     return cantMines;
     }
+    /***
+     * Funcion que suma las minas y reorna la cantidad
+     * @return 
+     */
     static int addMines(){
     cantMines++;
     return cantMines;
     }
-    
+    /***
+     * Funcion que resta los espcios para ganaer cuando el numero 0
+     * @return 
+     */
     static int substractSpacesToWin(){
     spacesToWin--;
     return spacesToWin;
