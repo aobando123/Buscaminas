@@ -233,21 +233,22 @@ public class Rutinas {
      * Procedimiento: Que LLena toda las lista con todos los elelementos del
      * tablero, lo cual significa que el jugador se rinde
      */
-    static void giveUpPlay(){
+    static List<String> giveUpPlay(){
         int row = sizeMat - 1;
         int column = sizeMat - 1;
         String buttonToShow;
         while (row >= 0) {
-            if (column != 0)
+            if (column >= 0)
             {
                 buttonToShow = "b" + row + column;
-                
+                listAllElements.add(buttonToShow);
                 column--;
             } else {
                 column = sizeMat - 1;
                 row--;
             }
         }
+        return listAllElements;
     }
     /***
      * Procedimieto: Llena la lista con todas las minas del tablero
@@ -268,13 +269,7 @@ public class Rutinas {
             }
         }
     }
-    /***
-     *Funcion: Retorna true sin el jugador se rinde 
-     * @return 
-     */
-    static boolean isLoser(){
-        return true;
-    }
+
     /***
      * Funcion: Retorna el valor debajo de la matriz, equivalente 
      * @param btnName Nombre del boton a analizar
@@ -286,6 +281,7 @@ public class Rutinas {
         int valueDashboard = dashboard[row][column];
         return valueDashboard;
     }
+    
     /***
      * Funcion: Retorna la lista de elementos a mostrar
      * @return 
@@ -293,6 +289,7 @@ public class Rutinas {
     static List<String> getListToShowCero(){
         return listSpacesWithCero;
     }
+    
     /***
      * Funcion: Retorna la lista de elementos a mostrar
      * @return 
@@ -300,6 +297,7 @@ public class Rutinas {
     static List<String> getListToShowNumbers(){
         return listNumbersAround;
     }
+    
     /***
      * Funcion: Rertona la lista con todas las minas
      * @return 
@@ -307,6 +305,7 @@ public class Rutinas {
     static List<String> getAllMines(){
         return listMines;
     }
+    
     /***
      * Limpia las listas
      */
@@ -314,6 +313,7 @@ public class Rutinas {
         listSpacesWithCero.clear();
         listNumbersAround.clear();
     }
+    
     /***
      * Funcion: Retorna el tamaño de la matriz 
      * @return 
@@ -321,6 +321,7 @@ public class Rutinas {
     static int getDashboardSize(){
     return sizeMat;
     }
+    
     /***
      * Funcion: resta minas y retorna la cantodad
      * @return 
@@ -337,6 +338,7 @@ public class Rutinas {
     cantMines++;
     return cantMines;
     }
+    
     /***
      * Funcion que resta los espcios para ganaer cuando el numero 0
      * @return 
@@ -345,4 +347,5 @@ public class Rutinas {
     spacesToWin--;
     return spacesToWin;
     }
+    
 }

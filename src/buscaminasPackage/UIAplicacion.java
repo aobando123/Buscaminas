@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -44,7 +43,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnJuego5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAllDashboard = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -94,8 +93,13 @@ public class UIAplicacion extends javax.swing.JFrame {
         lblquatity.setText("5");
         pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
 
-        jButton1.setText("jButton1");
-        pnJuego5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, -1));
+        btnAllDashboard.setText("Mostrar Tablero");
+        btnAllDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllDashboardActionPerformed(evt);
+            }
+        });
+        pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, -1, -1));
 
         pnPrincipal.add(pnJuego5, "card3");
 
@@ -174,6 +178,16 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.out.println(" ");
         }
     }//GEN-LAST:event_btnDificilActionPerformed
+
+    private void btnAllDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllDashboardActionPerformed
+        int valueBtn;
+        elementsToShow = Rutinas.giveUpPlay();
+        for (String element : elementsToShow) {
+            valueBtn = Rutinas.checkBackDashboard(element);
+            changeButton(element, valueBtn);
+        }
+        gameOverBySumition();
+    }//GEN-LAST:event_btnAllDashboardActionPerformed
   
     private void buttonClicked(java.awt.event.MouseEvent click) {
         String btnName = "";
@@ -311,8 +325,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         return nameImage;
     }
 
-    private ImageIcon getResizeImage(String imageName) 
-    {
+    private ImageIcon getResizeImage(String imageName){
         int width, height;
         if(Rutinas.getDashboardSize()==5){
         width=45;
@@ -328,6 +341,10 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         ImageIcon resizeIcon = new ImageIcon(resizeImage);
 
         return resizeIcon;
+    }
+    
+    private void gameOverBySumition(){
+        JOptionPane.showMessageDialog(this, "Se ha rendido");
     }
 
     /**
@@ -366,9 +383,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAllDashboard;
     private javax.swing.JButton btnDificil;
     private javax.swing.JButton btnNormal;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
