@@ -110,6 +110,7 @@ public class UIAplicacion extends javax.swing.JFrame {
             }
         });
         pnJuego5.add(btnFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 50, 50));
+        buttonMap.put(btnFace.getName(), btnFace);
 
         pnPrincipal.add(pnJuego5, "card3");
 
@@ -244,14 +245,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
                 String lastLetter = btn.getName().substring(btn.getName().length()-1);
-               if("f".equals(btn.getName().substring(btn.getName().length()-1))){
-               btnName = btnName.substring(0, 3);
-               changeButton(btnName, 11);
-               }
-               else{
-               btnName=btnName+"f";
-               changeButton(btnName, 10);
-               }
+                 changeButton(btnName, 10);
+              
             }
         }
 
@@ -292,61 +287,48 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         btn = buttonMap.get(bName);
         if(btn.isEnabled()){
         btn = setImage(btn, pvalor);
-        btn.setName(pName);
         buttonMap.replace(bName, btn);
        
         }
 
     }
     
-    private JButton setImage(JButton btn, int pvalor) {
-        String imgName;
-
-        if (pvalor < 10) {
-            imgName = chooseImage(pvalor);
-            btn.setDisabledIcon(getResizeImage(imgName));
-            btn.setBackground(new java.awt.Color(255, 255, 255));
-            btn.setEnabled(false);
-             Rutinas.substractSpacesToWin();
-        } else {
-            if (pvalor == 10) {
-                if ("0".equals(lblquatity.getText())) {
-                    JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
-                } else {
-                    lblquatity.setText("" + Rutinas.sustractMines());
-                    imgName = chooseImage(pvalor);
-                    btn.setIcon(getResizeImage(imgName));
-                }
-
-            } else  {
-                btn.setIcon(null);
-                lblquatity.setText("" + Rutinas.addMines());
-            }
-        }
-        
-        return btn;
-    }
-
-    private String chooseImage(int pvalue) {
+  
+     private JButton setImage(JButton btn, int pvalor) {
         String nameImage;
-        switch(pvalue){
-            case 9:
-                nameImage = "9.png";
-            break;
-            case 10:
-                nameImage= "flag.png";
-            break;
+        switch(pvalor){
             case 11:
-                nameImage= "face3.png";
+                btn.setIcon(getResizeImage("face3.png"));
             break;
             case 12:
-                    nameImage= "face2.png";
+                btn.setIcon(getResizeImage("face2.png"));
             break;
             default:
-                nameImage = pvalue + ".png";
+                btn.setDisabledIcon(getResizeImage(pvalor + ".png"));
+                btn.setBackground(new java.awt.Color(255, 255, 255));
+                btn.setEnabled(false);
+                Rutinas.substractSpacesToWin();
+             break;
+            case 10:
+                String lastLetter = btn.getName().substring(btn.getName().length()-1);
+                   if ("0".equals(lblquatity.getText())) 
+                   {
+                        JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
+                   } 
+                   else if("f".equals(lastLetter))
+                   {
+                        btn.setName(btn.getName().substring(0,3));
+                        btn.setIcon(null);
+                        lblquatity.setText("" + Rutinas.addMines());
+                   }
+                    else
+                   {
+                        lblquatity.setText("" + Rutinas.sustractMines());
+                        btn.setIcon(getResizeImage("flag.png"));
+                   }
             break;
         }
-        return nameImage;
+        return btn;
     }
 
     private ImageIcon getResizeImage(String imageName){
