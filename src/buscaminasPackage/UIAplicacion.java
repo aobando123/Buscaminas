@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class UIAplicacion extends javax.swing.JFrame {
@@ -240,7 +242,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 }
                 if(Rutinas.isWinner()){
                     changeButton("bst", 12);
-                    JOptionPane.showMessageDialog(this, "Felicidades! Ha ganado");
+                    addToRecords();
                 }
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
@@ -353,6 +355,29 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private void gameOverBySumition(){
         changeButton("bst", 11);
         JOptionPane.showMessageDialog(this, "Se ha rendido");
+    }
+    
+    private void addToRecords(){
+        
+        Object[] options1 = { "Agregar Nombre", "Volver A Jugar", "Salir" };
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Digite el nombre del ganador \n"));
+        JTextField textField = new JTextField(10);
+        panel.add(textField);
+        int result = JOptionPane.showOptionDialog(this, panel, "Felicidades!!",
+        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+        options1, null);
+            if (result == JOptionPane.YES_OPTION) 
+            {
+                JOptionPane.showMessageDialog(null, textField.getText());
+            }
+            else if(result == JOptionPane.YES_NO_CANCEL_OPTION)
+            {
+                JOptionPane.showMessageDialog(this, "jose");
+            }
+            else{
+                  System.exit(0);
+            }
     }
 
     /**
