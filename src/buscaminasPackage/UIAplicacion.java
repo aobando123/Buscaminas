@@ -103,6 +103,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, -1));
 
         lblFace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/face1.png"))); // NOI18N
+        lblFace.setName("bStatus"); // NOI18N
         pnJuego5.add(lblFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 50, 50));
 
         pnPrincipal.add(pnJuego5, "card3");
@@ -221,13 +222,15 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 {
                     Rutinas.findAllMines();
                     showAllMines();
+                    changeButton("bStatus", 11);
                     JOptionPane.showMessageDialog(this, "Lo siento, has perdido");
                     System.exit(0);
                     //todo: quitar el exit y cambiarlo por un reinicio o
                     //por un mensaje que le de opcion de reiniciar o salir
                 }
                 if(Rutinas.isWinner()){
-                 JOptionPane.showMessageDialog(this, "Felicidades! Ha ganado");
+                    changeButton("bStatus", 12);
+                    JOptionPane.showMessageDialog(this, "Felicidades! Ha ganado");
                 }
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
@@ -327,6 +330,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             case 11:
                 nameImage= "face3.png";
             break;
+            case 12:
+                    nameImage= "face2.png";
+            break;
             default:
                 nameImage = pvalue + ".png";
             break;
@@ -353,6 +359,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
     
     private void gameOverBySumition(){
+        changeButton("bStatus", 11);
         JOptionPane.showMessageDialog(this, "Se ha rendido");
     }
 
