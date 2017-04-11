@@ -406,6 +406,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         options1, null);
             if (result == JOptionPane.YES_OPTION) 
             {
+                //MOstrar Recors
+            }
     }
     /**
      * @param args the command line arguments
