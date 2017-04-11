@@ -44,7 +44,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
         btnAllDashboard = new javax.swing.JButton();
-        lblFace = new javax.swing.JLabel();
+        btnFace = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -102,9 +102,14 @@ public class UIAplicacion extends javax.swing.JFrame {
         });
         pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, -1));
 
-        lblFace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/face1.png"))); // NOI18N
-        lblFace.setName("bStatus"); // NOI18N
-        pnJuego5.add(lblFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 50, 50));
+        btnFace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/face1.png"))); // NOI18N
+        btnFace.setName("bst"); // NOI18N
+        btnFace.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFaceActionPerformed(evt);
+            }
+        });
+        pnJuego5.add(btnFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 50, 50));
 
         pnPrincipal.add(pnJuego5, "card3");
 
@@ -193,6 +198,10 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         gameOverBySumition();
     }//GEN-LAST:event_btnAllDashboardActionPerformed
+
+    private void btnFaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFaceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFaceActionPerformed
   
     private void buttonClicked(java.awt.event.MouseEvent click) {
         String btnName = "";
@@ -222,14 +231,14 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 {
                     Rutinas.findAllMines();
                     showAllMines();
-                    changeButton("bStatus", 11);
+                    changeButton("bst", 11);
                     JOptionPane.showMessageDialog(this, "Lo siento, has perdido");
                     System.exit(0);
                     //todo: quitar el exit y cambiarlo por un reinicio o
                     //por un mensaje que le de opcion de reiniciar o salir
                 }
                 if(Rutinas.isWinner()){
-                    changeButton("bStatus", 12);
+                    changeButton("bst", 12);
                     JOptionPane.showMessageDialog(this, "Felicidades! Ha ganado");
                 }
 
@@ -309,7 +318,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                     btn.setIcon(getResizeImage(imgName));
                 }
 
-            } else {
+            } else  {
                 btn.setIcon(null);
                 lblquatity.setText("" + Rutinas.addMines());
             }
@@ -359,7 +368,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
     
     private void gameOverBySumition(){
-        changeButton("bStatus", 11);
+        changeButton("bst", 11);
         JOptionPane.showMessageDialog(this, "Se ha rendido");
     }
 
@@ -401,9 +410,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAllDashboard;
     private javax.swing.JButton btnDificil;
+    private javax.swing.JButton btnFace;
     private javax.swing.JButton btnNormal;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblFace;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblquatity;

@@ -164,16 +164,19 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblFace">
+            <Component class="javax.swing.JButton" name="btnFace">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/buscaminasPackage/face1.png"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="bStatus" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="bst" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFaceActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="460" y="190" width="50" height="50"/>
+                  <AbsoluteConstraints x="460" y="200" width="50" height="50"/>
                 </Constraint>
               </Constraints>
             </Component>
