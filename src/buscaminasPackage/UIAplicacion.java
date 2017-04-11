@@ -311,7 +311,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
              break;
             case 10:
                 String lastLetter = btn.getName().substring(btn.getName().length()-1);
-                   if ("0".equals(lblquatity.getText())) 
+                   if ("0".equals(lblquatity.getText()) && !"f".equals(lastLetter)) 
                    {
                         JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
                    } 
