@@ -325,6 +325,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                    {
                         lblquatity.setText("" + Rutinas.sustractMines());
                         btn.setIcon(getResizeImage("flag.png"));
+                        btn.setName(btn.getName()+"f");
                    }
             break;
         }
