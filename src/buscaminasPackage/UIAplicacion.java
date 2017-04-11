@@ -44,6 +44,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
         btnAllDashboard = new javax.swing.JButton();
+        lblFace = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -99,7 +100,10 @@ public class UIAplicacion extends javax.swing.JFrame {
                 btnAllDashboardActionPerformed(evt);
             }
         });
-        pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, -1, -1));
+        pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, -1));
+
+        lblFace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/face1.png"))); // NOI18N
+        pnJuego5.add(lblFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 50, 50));
 
         pnPrincipal.add(pnJuego5, "card3");
 
@@ -313,14 +317,19 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
     private String chooseImage(int pvalue) {
         String nameImage;
-        if (pvalue == 9) {
-            nameImage = "9.png";
-        }
-        else if(pvalue==10) {
-            nameImage= "flag.png";
-        }
-        else{
-            nameImage = pvalue + ".png";
+        switch(pvalue){
+            case 9:
+                nameImage = "9.png";
+            break;
+            case 10:
+                nameImage= "flag.png";
+            break;
+            case 11:
+                nameImage= "face3.png";
+            break;
+            default:
+                nameImage = pvalue + ".png";
+            break;
         }
         return nameImage;
     }
@@ -387,6 +396,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private javax.swing.JButton btnDificil;
     private javax.swing.JButton btnNormal;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblFace;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblquatity;
