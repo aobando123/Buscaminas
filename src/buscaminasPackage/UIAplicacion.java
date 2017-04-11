@@ -22,7 +22,7 @@ public class UIAplicacion extends javax.swing.JFrame {
 
     private static List<String> elementsToShow = new ArrayList();
     private static List<String> elementsToShowNumbers = new ArrayList();
-
+    private static int numberOfClicks = 0;
     public UIAplicacion() {
         initComponents();
     }
@@ -215,6 +215,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         Object o = click.getSource();
         if (o instanceof JButton) {
             btn = (JButton) o;
+            numberOfClicks++;
         }
 
         if (btn != null) {
@@ -358,7 +359,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
     
     private void addToRecords(){
-        
+        String playerName;
         Object[] options1 = { "Agregar Nombre", "Volver A Jugar", "Salir" };
         JPanel panel = new JPanel();
         panel.add(new JLabel("Digite el nombre del ganador \n"));
@@ -369,11 +370,12 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         options1, null);
             if (result == JOptionPane.YES_OPTION) 
             {
-                JOptionPane.showMessageDialog(null, textField.getText());
+                numberOfClicks++;
+                playerName = textField.getText();
             }
             else if(result == JOptionPane.YES_NO_CANCEL_OPTION)
             {
-                JOptionPane.showMessageDialog(this, "jose");
+                JOptionPane.showMessageDialog(this, "");
             }
             else{
                   System.exit(0);
