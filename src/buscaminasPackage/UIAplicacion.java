@@ -364,7 +364,39 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private void addToRecords(){
         String playerName;
         boolean isCompleted;
-        Object[] options1 = { "Agregar Nombre", "Volver A Jugar", "Salir" };
+        Object[] options1 = { "Agregar Nombre", "Salir" };
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Digite el nombre del ganador \n"));
+        JTextField textField = new JTextField(10);
+        panel.add(textField);
+        int result = JOptionPane.showOptionDialog(this, panel, "Felicidades Ha Ganado!!",
+        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+        options1, null);
+            if (result == JOptionPane.YES_OPTION) 
+            {
+                playerName = textField.getText();
+            try 
+            {
+                isCompleted = Rutinas.serializeWinner(numberOfClicks, playerName);
+                if(isCompleted){
+                    panel.setVisible(false);
+                    showFinalMessage();
+                }
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+            else{
+                  System.exit(0);
+            }
+    }
+
+    private void showFinalMessage(){
+     String playerName;
+        boolean isCompleted;
+        Object[] options1 = { "Mostrar Records", "Volver A Jugar", "Salir" };
         JPanel panel = new JPanel();
         panel.add(new JLabel("Digite el nombre del ganador \n"));
         JTextField textField = new JTextField(10);
@@ -374,25 +406,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         options1, null);
             if (result == JOptionPane.YES_OPTION) 
             {
-                playerName = textField.getText();
-            try 
-            {
-                isCompleted = Rutinas.serializeWinner(numberOfClicks, playerName);
-            } 
-            catch (IOException ex) 
-            {
-                Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            }
-            else if(result == JOptionPane.YES_NO_CANCEL_OPTION)
-            {
-                JOptionPane.showMessageDialog(this, "");
-            }
-            else{
-                  System.exit(0);
-            }
     }
-
     /**
      * @param args the command line arguments
      */
