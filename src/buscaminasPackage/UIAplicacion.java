@@ -98,7 +98,7 @@ public class UIAplicacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
-    private void initpnJuego5(int psize) {
+    private void initializePnJuego(int psize) {
         //comment
         int posx = 10;
         int posy = 10;
@@ -133,9 +133,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
 
     private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
-        // TODO add your handling code here:
+        
         Rutinas.initDashboard(5);
-        initpnJuego5(5);
+        initializePnJuego(5);
         pnPrincipal.remove(pnInicio);
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
@@ -151,9 +151,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }//GEN-LAST:event_btnNormalActionPerformed
 
     private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
-        // TODO add your handling code here:
+        
         Rutinas.initDashboard(8);
-        initpnJuego5(8);
+        initializePnJuego(8);
         pnPrincipal.remove(pnInicio);
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
