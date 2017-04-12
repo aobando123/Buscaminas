@@ -406,7 +406,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
     }
 
-   private void showFinalMessage() throws IOException{
+      private void showFinalMessage() throws IOException{
         String playerName;
         List<String> topFive = new ArrayList();
         boolean isCompleted;
@@ -424,9 +424,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
             else if(result == JOptionPane.PLAIN_MESSAGE){
                 System.exit(0);
-            }
+             }
             else{
-                restarGame();
+                restarGame(); 
             }
     }
     
@@ -448,7 +448,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 System.exit(0);
             }
     }
-     public static final String SUN_JAVA_COMMAND = "sun.java.command";
+
+    public static final String SUN_JAVA_COMMAND = "sun.java.command";
 
 /**
  * Restart the current Java application

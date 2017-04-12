@@ -4,3 +4,7 @@ Adrian 12
 Teo 5
 Fabian 9
 David 11
+Ft 5
+Ga 8
+try 15
+Alf 5
