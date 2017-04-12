@@ -226,7 +226,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         //left click or right click
         if (btn.isEnabled()) {
-            if (SwingUtilities.isLeftMouseButton(click) && !"f".equals(btnName.substring(btnName.length()-1))) {
+            if (SwingUtilities.isLeftMouseButton(click) && ! isLastLetter(btnName,"f")) {
                 int valueBehindButton = Rutinas.checkBackDashboard(btnName);
                 if (valueBehindButton == 0) {
                     showNearZeroButton(btnName);
@@ -296,7 +296,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         String imgName,bName;
         bName = pName.substring(0, 3);
         btn = buttonMap.get(bName);
-        if(btn.isEnabled() && (!"f".equals(btn.getName().substring(btn.getName().length()-1))&&pvalor!=10)){
+        if(btn.isEnabled() && (!isLastLetter(btn.getName(),"f")&&pvalor!=10)){
         btn = setImage(btn, pvalor);
         buttonMap.replace(bName, btn);
        
@@ -334,14 +334,13 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 break;
             case 10:
 
-                String lastLetter = btn.getName().substring(btn.getName().length() - 1);
-                if ("0".equals(lblquatity.getText()) && !"f".equals(lastLetter)) {
+                if ("0".equals(lblquatity.getText()) && !isLastLetter(btn.getName(),"f")) {
                     JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
-                } else if ("f".equals(lastLetter)) {
+                } else if (isLastLetter(btn.getName(),"f")) {
                     btn.setName(btn.getName().substring(0, 3)+"?");
                     btn.setIcon(getResizeImage("question.png",width,height));
                     lblquatity.setText("" + Rutinas.addMines());
-                } else if ("?".equals(lastLetter)) {
+                } else if (isLastLetter(btn.getName(),"?")) {
                      btn.setName(btn.getName().substring(0, 3));
                     btn.setIcon(null);
 
@@ -370,6 +369,13 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private void gameOverBySumition(){
         changeButton("bst", 11);
         JOptionPane.showMessageDialog(this, "Se ha rendido");
+    }
+    
+    private boolean isLastLetter(String buttonName, String lastLetter){
+    if(lastLetter.equals(buttonName.substring(buttonName.length()-1))){
+    return true;
+    }
+    return false;
     }
     
     private void addToRecords(){
