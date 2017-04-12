@@ -86,6 +86,7 @@ public class Rutinas {
     private static boolean insertMine(int prow, int pcolumn) {
         if (dashboard[prow][pcolumn] != 9) {
             dashboard[prow][pcolumn] = 9;
+             listMines.add("b" + prow + pcolumn);
             return false;
         }
         return true;
@@ -255,25 +256,7 @@ public class Rutinas {
         }
         return listAllElements;
     }
-    /***
-     * Procedimieto: Llena la lista con todas las minas del tablero
-     */
-    static void findAllMines(){
-     
-        int row = 0, column = 0,cont = 0;
-        while (row < sizeMat) {
-            if (column < sizeMat)
-            {
-                if(dashboard[row][column] == 9){
-                listMines.add("b" + row + column);
-                }
-                column++;
-            } else {
-                column = 0;
-                row++;
-            }
-        }
-    }
+
 
     /***
      * Funcion: Retorna el valor debajo de la matriz, equivalente 

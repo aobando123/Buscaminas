@@ -226,7 +226,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         //left click or right click
         if (btn.isEnabled()) {
-            if (SwingUtilities.isLeftMouseButton(click)) {
+            if (SwingUtilities.isLeftMouseButton(click) && !"f".equals(btnName.substring(btnName.length()-1))) {
                 int valueBehindButton = Rutinas.checkBackDashboard(btnName);
                 if (valueBehindButton == 0) {
                     showNearZeroButton(btnName);
@@ -236,7 +236,6 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 }
                 else
                 {
-                    Rutinas.findAllMines();
                     showAllMines();
                     changeButton("bst", 11);
                     JOptionPane.showMessageDialog(this, "Lo siento, has perdido");
@@ -300,57 +299,62 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
     
   
-     private JButton setImage(JButton btn, int pvalor) {
+    private JButton setImage(JButton btn, int pvalor) {
+        int width, height;
+        if (Rutinas.getDashboardSize() == 5) {
+            width = 60;
+            height = 60;
+        } else {
+            width = 40;
+            height = 40;
+        }
         String nameImage;
-        switch(pvalor){
+        switch (pvalor) {
             case 11:
-                btn.setIcon(getResizeImage("face3.png"));
-            break;
+                btn.setIcon(getResizeImage("face3.png",width,height));
+                break;
             case 12:
-                btn.setIcon(getResizeImage("face2.png"));
-            break;
+                btn.setIcon(getResizeImage("face2.png",width,height));
+                break;
             default:
-                btn.setDisabledIcon(getResizeImage(pvalor + ".png"));
+                btn.setDisabledIcon(getResizeImage(pvalor + ".png",width,height));
                 btn.setBackground(new java.awt.Color(255, 255, 255));
                 btn.setEnabled(false);
                 Rutinas.substractSpacesToWin();
-             break;
+                break;
             case 10:
-                String lastLetter = btn.getName().substring(btn.getName().length()-1);
-                   if ("0".equals(lblquatity.getText()) && !"f".equals(lastLetter)) 
-                   {
-                        JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
-                   } 
-                   else if("f".equals(lastLetter))
-                   {
-                        btn.setName(btn.getName().substring(0,3));
-                        btn.setIcon(null);
-                        lblquatity.setText("" + Rutinas.addMines());
-                   }
-                    else
-                   {
-                        lblquatity.setText("" + Rutinas.sustractMines());
-                        btn.setIcon(getResizeImage("flag.png"));
-                        btn.setName(btn.getName()+"f");
-                   }
-            break;
+
+                String lastLetter = btn.getName().substring(btn.getName().length() - 1);
+                if ("0".equals(lblquatity.getText()) && !"f".equals(lastLetter)) {
+                    JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
+                } else if ("f".equals(lastLetter)) {
+                    btn.setName(btn.getName().substring(0, 3)+"?");
+                    btn.setIcon(getResizeImage("question.png",width,height));
+                    lblquatity.setText("" + Rutinas.addMines());
+                } else if ("?".equals(lastLetter)) {
+                     btn.setName(btn.getName().substring(0, 3));
+                    btn.setIcon(null);
+
+                } else {
+                    lblquatity.setText("" + Rutinas.sustractMines());
+                    btn.setIcon(getResizeImage("flag.png",width,height));
+                    btn.setName(btn.getName() + "f");
+                }
+                break;
+
+                
+
         }
         return btn;
     }
 
-    private ImageIcon getResizeImage(String imageName){
-        int width, height;
-        if(Rutinas.getDashboardSize()==5){
-        width=45;
-        height = 45;
-        }
-        else {
-        width=30;
-        height = 30;
-        }
+     
+
+    private ImageIcon getResizeImage(String imageName, int pwidth, int pheight) {
+
         ImageIcon icoDefault = new ImageIcon(getClass().getResource("/buscaminasPackage/" + imageName));
         Image imageDefault = icoDefault.getImage();
-        Image resizeImage = imageDefault.getScaledInstance(width,height, Image.SCALE_SMOOTH);
+        Image resizeImage = imageDefault.getScaledInstance(pwidth, pheight, Image.SCALE_SMOOTH);
         ImageIcon resizeIcon = new ImageIcon(resizeImage);
 
         return resizeIcon;
