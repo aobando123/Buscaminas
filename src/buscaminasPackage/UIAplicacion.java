@@ -423,10 +423,10 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 showRecords(topFive);
             }
             else if(result == JOptionPane.PLAIN_MESSAGE){
-                restarGame();
+                System.exit(0);
             }
             else{
-                System.exit(0);
+                restarGame();
             }
     }
     

@@ -2,3 +2,5 @@ Jose 4
 Feer 8
 Adrian 12
 Teo 5
+Fabian 9
+David 11
