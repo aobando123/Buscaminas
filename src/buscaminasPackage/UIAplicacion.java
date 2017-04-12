@@ -341,9 +341,6 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                     btn.setName(btn.getName() + "f");
                 }
                 break;
-
-                
-
         }
         return btn;
     }
@@ -397,7 +394,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
     }
 
-    private void showFinalMessage(){
+   private void showFinalMessage(){
         String playerName;
         String topFive;
         boolean isCompleted;
@@ -409,8 +406,35 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         options1, null);
             if (result == JOptionPane.YES_OPTION) 
             {
+                panel.setVisible(false);
                 topFive = Rutinas.winners();
+                showRecords(topFive);
             }
+            else if(result == JOptionPane.PLAIN_MESSAGE){
+                restarGame();
+            }
+            else{
+                System.exit(0);
+            }
+    }
+    
+    public void showRecords(String ptopFive){
+        Object[] options1 = { "Volver A Jugar", "Salir" };
+        JPanel panel = new JPanel();
+        panel.add(new JLabel(ptopFive));
+        int result = JOptionPane.showOptionDialog(this, panel, "Los mejores 5",
+        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+        options1, null);
+            if (result == JOptionPane.YES_OPTION) 
+            {
+                restarGame();
+            }
+            else{
+                System.exit(0);
+            }
+    }
+    public void restarGame(){
+        JOptionPane.showMessageDialog(this, "aqui se reinicia la app");
     }
     /**
      * @param args the command line arguments

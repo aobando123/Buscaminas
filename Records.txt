@@ -1,2 +1,1 @@
-jose 10
-adrian 8
+Jose 13
