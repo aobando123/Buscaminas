@@ -265,12 +265,18 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         elementsToShow = Rutinas.getListToShowCero();
         elementsToShowNumbers = Rutinas.getListToShowNumbers();
         for (String element : elementsToShow) {
+
             changeButton(element, 0);
+
+            
             
         }
         for (String element : elementsToShowNumbers) {
+
             valueBtn = Rutinas.checkBackDashboard(element);
-            changeButton(element, valueBtn);
+            changeButton(element, valueBtn);          
+
+
             
         }
         Rutinas.cleanAllLists();
@@ -290,10 +296,14 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         String imgName,bName;
         bName = pName.substring(0, 3);
         btn = buttonMap.get(bName);
-        if(btn.isEnabled()){
+        if(btn.isEnabled() && (!"f".equals(btn.getName().substring(btn.getName().length()-1))&&pvalor!=10)){
         btn = setImage(btn, pvalor);
         buttonMap.replace(bName, btn);
        
+        }
+        else if(pvalor==10){
+        btn = setImage(btn, pvalor);
+        buttonMap.replace(bName, btn);
         }
 
     }
