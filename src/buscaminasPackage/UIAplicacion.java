@@ -269,17 +269,11 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         for (String element : elementsToShow) {
 
             changeButton(element, 0);
-
-            
-            
         }
         for (String element : elementsToShowNumbers) {
 
             valueBtn = Rutinas.checkBackDashboard(element);
             changeButton(element, valueBtn);          
-
-
-            
         }
         Rutinas.cleanAllLists();
     }
