@@ -394,9 +394,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
     }
 
-   private void showFinalMessage(){
+   private void showFinalMessage() throws IOException{
         String playerName;
-        String topFive;
+        List<String> topFive = new ArrayList();
         boolean isCompleted;
         Object[] options1 = { "Mostrar Records", "Volver A Jugar", "Salir" };
         JPanel panel = new JPanel();
@@ -418,10 +418,13 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
     }
     
-    public void showRecords(String ptopFive){
+    public void showRecords(List<String> ptopFive){
         Object[] options1 = { "Volver A Jugar", "Salir" };
+        int count = 0;
         JPanel panel = new JPanel();
-        panel.add(new JLabel(ptopFive));
+        for (String element : ptopFive) {
+            panel.add(new JLabel(element));
+        }
         int result = JOptionPane.showOptionDialog(this, panel, "Los mejores 5",
         JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
         options1, null);

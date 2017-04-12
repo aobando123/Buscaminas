@@ -9,13 +9,17 @@
 package buscaminasPackage;
 
 //Librerias Utilizadas
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,6 +38,7 @@ public class Rutinas {
     private static List<String> listAllElements = new ArrayList();
     private static List<String> listMines = new ArrayList();
     private static boolean isFirstCero = true;
+    private static String pathfile = null;
 
     /**
      * Procedimiento:Inicializar matriz Parametros:size Funcion: inicializa la
@@ -359,15 +364,59 @@ public class Rutinas {
            writer.write(pplayerName + " " + pnumClicks);
            writer.close();
         }
+        pathfile = file.getAbsolutePath();
         return true;
     }
     /***
      * 
      */
-    public static String winners(){
-        String topFive = "Jose";
+    public static  List<String> winners() throws FileNotFoundException, IOException{
+        List<String> elemntsOnFile = new ArrayList();
+        List<String> topFive = new ArrayList();
+        BufferedReader reader = new BufferedReader(new FileReader(pathfile));
+        String line;
+        while ((line = reader.readLine()) != null)
+        {
+            elemntsOnFile.add(line);
+        }
+        reader.close();
         
+        String nameWinners[] = new String[elemntsOnFile.size()];
+        int scores[] = new int[elemntsOnFile.size()];
+
+        String topNames;
+        String spliter[] = new String[2];
+        int index = 0, i = 0, aux, j, limit;
         
+        for (String elementsFile : elemntsOnFile) 
+        {
+            spliter= elementsFile.split("\\s+");
+            nameWinners[index] = spliter[0];
+            scores[index] = Integer.parseInt(spliter[1]);
+            index++;
+        }
+        for(i = 1; i < scores.length; i++)
+        {
+            aux = scores[i];
+            topNames = nameWinners[i];
+            j = i - 1; 
+            while ((j >= 0) && (aux < scores[j])){ 
+                scores[j + 1] = scores[j];
+                nameWinners[j+1] = nameWinners[j];
+                j--;
+            }
+            scores[j + 1] = aux;
+            nameWinners[j+1] = topNames;
+        }
+        limit =elemntsOnFile.size();
+        if (limit > 5)
+            limit = 5;
+        
+        for( i = 0; i < limit; i++)
+        {
+            topFive.add( (i+1)+". "+ nameWinners[i]+" "+ scores[i] + ".pts ");
+        }
         return topFive;
+        
     }
 }
