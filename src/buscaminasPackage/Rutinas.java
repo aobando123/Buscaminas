@@ -9,9 +9,11 @@
 package buscaminasPackage;
 
 //Librerias Utilizadas
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -350,21 +352,39 @@ public class Rutinas {
     spacesToWin--;
     return spacesToWin;
     }
-    
+    /***
+     * Funcion: Se enecarga de crear un archovo txt con los nombres de los Ganadores.
+     * @param pnumClicks Numero de clicks
+     * @param pplayerName Nombre del jugador 
+     * @return True si se ejecuta de forma satisfactoria 
+     * @throws IOException 
+     */
     static boolean serializeWinner(int pnumClicks, String pplayerName) throws IOException{
         File file = new File("Records.txt");
         //Create the file
-        if (file.createNewFile()){
-
+        if (!file.exists())
+        {
+            file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+            writer.write(pplayerName +" " + pnumClicks);
+            writer.close();
         }
         else
         {
- 
+           BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+           writer.newLine();
+           writer.write(pplayerName + " " + pnumClicks);
+           writer.close();
         }
-         //Write Content
-        FileWriter writer = new FileWriter(file);
-        writer.write(pplayerName +" " + pnumClicks);
-        writer.close();
         return true;
+    }
+    /***
+     * 
+     */
+    public static String winners(){
+        String topFive = "";
+        
+        
+        return topFive;
     }
 }

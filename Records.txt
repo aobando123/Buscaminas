@@ -1,1 +1,2 @@
-xd 21
+jose 10
+adrian 8

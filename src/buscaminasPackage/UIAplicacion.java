@@ -394,19 +394,18 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
 
     private void showFinalMessage(){
-     String playerName;
+        String playerName;
+        String topFive;
         boolean isCompleted;
         Object[] options1 = { "Mostrar Records", "Volver A Jugar", "Salir" };
         JPanel panel = new JPanel();
-        panel.add(new JLabel("Digite el nombre del ganador \n"));
-        JTextField textField = new JTextField(10);
-        panel.add(textField);
-        int result = JOptionPane.showOptionDialog(this, panel, "Felicidades!!",
+        panel.add(new JLabel("Seleccione lo que desaea hacer"));
+        int result = JOptionPane.showOptionDialog(this, panel, "Fin del Juego",
         JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null,
         options1, null);
             if (result == JOptionPane.YES_OPTION) 
             {
-                //MOstrar Recors
+                topFive = Rutinas.winners();
             }
     }
     /**
