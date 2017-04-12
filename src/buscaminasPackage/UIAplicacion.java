@@ -6,7 +6,9 @@
 package buscaminasPackage;
 
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -434,7 +436,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
     }
     
-    public void showRecords(List<String> ptopFive){
+    public void showRecords(List<String> ptopFive) throws IOException{
         Object[] options1 = { "Volver A Jugar", "Salir" };
         int count = 0;
         JPanel panel = new JPanel();
@@ -452,8 +454,57 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 System.exit(0);
             }
     }
-    public void restarGame(){
-        JOptionPane.showMessageDialog(this, "aqui se reinicia la app");
+     public static final String SUN_JAVA_COMMAND = "sun.java.command";
+
+/**
+ * Restart the current Java application
+ * @param runBeforeRestart some custom code to be run before restarting
+ * @throws IOException
+ */
+    public static void restarGame() throws IOException {
+    try {
+    String java = System.getProperty("java.home") + "/bin/java";
+    List<String> vmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+    StringBuffer vmArgsOneLine = new StringBuffer();
+    for (String arg : vmArguments) 
+    {
+        if (!arg.contains("-agentlib")) 
+        {
+        vmArgsOneLine.append(arg);
+        vmArgsOneLine.append(" ");
+        }
+    }
+    final StringBuffer cmd = new StringBuffer("\"" + java + "\" " + vmArgsOneLine);
+
+    String[] mainCommand = System.getProperty(SUN_JAVA_COMMAND).split(" ");
+    if (mainCommand[0].endsWith(".jar")) 
+    {
+        cmd.append("-jar " + new File(mainCommand[0]).getPath());
+    } 
+    else 
+    {
+        cmd.append("-cp \"" + System.getProperty("java.class.path") + "\" " + mainCommand[0]);
+    }
+    for (int i = 1; i < mainCommand.length; i++) 
+    {
+        cmd.append(" ");
+        cmd.append(mainCommand[i]);
+    }
+    Runtime.getRuntime().addShutdownHook(new Thread() {
+    @Override
+    public void run() 
+    {
+    try {
+        Runtime.getRuntime().exec(cmd.toString());
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    }
+    });
+    System.exit(0);
+    } catch (Exception e) {
+    throw new IOException("Error while trying to restart the application", e);
+        }
     }
     /**
      * @param args the command line arguments
