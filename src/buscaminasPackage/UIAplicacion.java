@@ -1,10 +1,10 @@
-/**
+/*
  * Nombre del programa: Buscaminas Rutinas
  * Descripción: Esta parte de la aplicacion se encarga de la interfaz grafica
- * Fecha:9 de Abril del 2017
- * Autor: Adrián Obando Leitón y Jose Solano
+ * Fecha: 9 de Abril del 2017
+ * Autor: Adrián Obando Leitón y Jose Solano Montoya
  * Fecha de modificación: 12-04-17
- * Modificado por: Adrián Obando Leitón
+ * Modificado por: Jose Solano
  */
 package buscaminasPackage;
 
@@ -31,6 +31,7 @@ public class UIAplicacion extends javax.swing.JFrame {
     private static List<String> elementsToShow = new ArrayList();
     private static List<String> elementsToShowNumbers = new ArrayList();
     private static int numberOfClicks = 0;
+
     public UIAplicacion() {
         initComponents();
     }
@@ -169,7 +170,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
 
     private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
-        
+
         Rutinas.initDashboard(5);
         initializePnJuego(5);
         pnPrincipal.remove(pnInicio);
@@ -187,7 +188,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }//GEN-LAST:event_btnNormalActionPerformed
 
     private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
-        
+
         Rutinas.initDashboard(8);
         initializePnJuego(8);
         pnPrincipal.remove(pnInicio);
@@ -221,7 +222,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private void btnFaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFaceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFaceActionPerformed
-  
+
     private void buttonClicked(java.awt.event.MouseEvent click) throws IOException {
         String btnName = "";
         elementsToShowNumbers.clear();
@@ -239,36 +240,33 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         //left click or right click
         if (btn.isEnabled()) {
-            if (SwingUtilities.isLeftMouseButton(click) && ! isLastLetter(btnName,"f")) {
+            if (SwingUtilities.isLeftMouseButton(click) && !isLastLetter(btnName, "f")) {
                 int valueBehindButton = Rutinas.checkBackDashboard(btnName);
                 if (valueBehindButton == 0) {
                     showNearZeroButton(btnName);
-                }
-                else if(valueBehindButton != 9){
+                } else if (valueBehindButton != 9) {
                     changeButton(btnName, valueBehindButton);
-                }
-                else
-                {
+                } else {
                     showAllMines();
                     changeButton("bst", 11);
                     showGameOver();
                 }
-                if(Rutinas.isWinner()){
+                if (Rutinas.isWinner()) {
                     changeButton("bst", 12);
                     addToRecords();
                 }
 
             } else if (SwingUtilities.isRightMouseButton(click)) {
-                String lastLetter = btn.getName().substring(btn.getName().length()-1);
-                 changeButton(btnName, 10);
-              
+                String lastLetter = btn.getName().substring(btn.getName().length() - 1);
+                changeButton(btnName, 10);
+
             }
         }
 
     }
 
     private void showNearZeroButton(String pbtnName) {
-        int row = 0, column = 0, valueBtn =0;
+        int row = 0, column = 0, valueBtn = 0;
         row = Character.getNumericValue(pbtnName.charAt(1));
         column = Character.getNumericValue(pbtnName.charAt(2));
         Rutinas.spaceWithCero(row, column);
@@ -281,12 +279,12 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         for (String element : elementsToShowNumbers) {
 
             valueBtn = Rutinas.checkBackDashboard(element);
-            changeButton(element, valueBtn);          
+            changeButton(element, valueBtn);
         }
         Rutinas.cleanAllLists();
     }
-    
-    private void showAllMines(){
+
+    private void showAllMines() {
         int valueBtn;
         elementsToShowNumbers = Rutinas.getAllMines();
         for (String element : elementsToShowNumbers) {
@@ -297,22 +295,20 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
     private void changeButton(String pName, int pvalor) {
         JButton btn;
-        String imgName,bName;
+        String imgName, bName;
         bName = pName.substring(0, 3);
         btn = buttonMap.get(bName);
-        if(btn.isEnabled() && (!isLastLetter(btn.getName(),"f")&&pvalor!=10)){
-        btn = setImage(btn, pvalor);
-        buttonMap.replace(bName, btn);
-       
-        }
-        else if(pvalor==10){
-        btn = setImage(btn, pvalor);
-        buttonMap.replace(bName, btn);
+        if (btn.isEnabled() && (!isLastLetter(btn.getName(), "f") && pvalor != 10)) {
+            btn = setImage(btn, pvalor);
+            buttonMap.replace(bName, btn);
+
+        } else if (pvalor == 10) {
+            btn = setImage(btn, pvalor);
+            buttonMap.replace(bName, btn);
         }
 
     }
-    
-  
+
     private JButton setImage(JButton btn, int pvalor) {
         int width, height;
         if (Rutinas.getDashboardSize() == 5) {
@@ -325,40 +321,38 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         String nameImage;
         switch (pvalor) {
             case 11:
-                btn.setIcon(getResizeImage("face3.png",width,height));
+                btn.setIcon(getResizeImage("face3.png", width, height));
                 break;
             case 12:
-                btn.setIcon(getResizeImage("face2.png",width,height));
+                btn.setIcon(getResizeImage("face2.png", width, height));
                 break;
             default:
-                btn.setDisabledIcon(getResizeImage(pvalor + ".png",width,height));
+                btn.setDisabledIcon(getResizeImage(pvalor + ".png", width, height));
                 btn.setBackground(new java.awt.Color(255, 255, 255));
                 btn.setEnabled(false);
                 Rutinas.substractSpacesToWin();
                 break;
             case 10:
 
-                if ("0".equals(lblquatity.getText()) && !isLastLetter(btn.getName(),"f")) {
+                if ("0".equals(lblquatity.getText()) && !isLastLetter(btn.getName(), "f")) {
                     JOptionPane.showMessageDialog(this, "Ya ha usado todas su banderas");
-                } else if (isLastLetter(btn.getName(),"f")) {
-                    btn.setName(btn.getName().substring(0, 3)+"?");
-                    btn.setIcon(getResizeImage("question.png",width,height));
+                } else if (isLastLetter(btn.getName(), "f")) {
+                    btn.setName(btn.getName().substring(0, 3) + "?");
+                    btn.setIcon(getResizeImage("question.png", width, height));
                     lblquatity.setText("" + Rutinas.addMines());
-                } else if (isLastLetter(btn.getName(),"?")) {
-                     btn.setName(btn.getName().substring(0, 3));
+                } else if (isLastLetter(btn.getName(), "?")) {
+                    btn.setName(btn.getName().substring(0, 3));
                     btn.setIcon(null);
 
                 } else {
                     lblquatity.setText("" + Rutinas.sustractMines());
-                    btn.setIcon(getResizeImage("flag.png",width,height));
+                    btn.setIcon(getResizeImage("flag.png", width, height));
                     btn.setName(btn.getName() + "f");
                 }
                 break;
         }
         return btn;
     }
-
-     
 
     private ImageIcon getResizeImage(String imageName, int pwidth, int pheight) {
 
@@ -369,163 +363,145 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
         return resizeIcon;
     }
-    
-    private void gameOverBySumition() throws IOException{
+
+    private void gameOverBySumition() throws IOException {
         changeButton("bst", 11);
         showGameOver();
     }
-    
-    private boolean isLastLetter(String buttonName, String lastLetter){
-    if(lastLetter.equals(buttonName.substring(buttonName.length()-1))){
-    return true;
+
+    private boolean isLastLetter(String buttonName, String lastLetter) {
+        if (lastLetter.equals(buttonName.substring(buttonName.length() - 1))) {
+            return true;
+        }
+        return false;
     }
-    return false;
-    }
-    
-    private void addToRecords(){
+
+    private void addToRecords() {
         String playerName;
         boolean isCompleted;
-        Object[] options1 = { "Agregar Nombre", "Salir" };
+        Object[] options1 = {"Agregar Nombre", "Salir"};
         JPanel panel = new JPanel();
         panel.add(new JLabel("Digite el nombre del ganador \n"));
         JTextField textField = new JTextField(10);
         panel.add(textField);
         int result = JOptionPane.showOptionDialog(this, panel, "Felicidades Ha Ganado!!",
-        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-        options1, null);
-            if (result == JOptionPane.YES_OPTION) 
-            {
-                playerName = textField.getText();
-            try 
-            {
+                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                options1, null);
+        if (result == JOptionPane.YES_OPTION) {
+            playerName = textField.getText();
+            try {
                 isCompleted = Rutinas.serializeWinner(numberOfClicks, playerName);
-                if(isCompleted){
+                if (isCompleted) {
                     panel.setVisible(false);
                     showFinalMessage();
                 }
-            } 
-            catch (IOException ex) 
-            {
+            } catch (IOException ex) {
                 Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
             }
-            }
-            else{
-                  System.exit(0);
-            }
+        } else {
+            System.exit(0);
+        }
     }
 
-      private void showFinalMessage() throws IOException{
+    private void showFinalMessage() throws IOException {
         String playerName;
         List<String> topFive = new ArrayList();
         boolean isCompleted;
-        Object[] options1 = { "Mostrar Records", "Volver A Jugar", "Salir" };
+        Object[] options1 = {"Mostrar Records", "Volver A Jugar", "Salir"};
         JPanel panel = new JPanel();
         panel.add(new JLabel("Seleccione lo que desaea hacer"));
         int result = JOptionPane.showOptionDialog(this, panel, "Fin del Juego",
-        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-        options1, null);
-            if (result == JOptionPane.YES_OPTION) 
-            {
-                panel.setVisible(false);
-                topFive = Rutinas.winners();
-                showRecords(topFive);
-            }
-            else if(result == JOptionPane.PLAIN_MESSAGE){
-                System.exit(0);
-             }
-            else{
-                restarGame(); 
-            }
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                options1, null);
+        if (result == JOptionPane.YES_OPTION) {
+            panel.setVisible(false);
+            topFive = Rutinas.winners();
+            showRecords(topFive);
+        } else if (result == JOptionPane.PLAIN_MESSAGE) {
+            System.exit(0);
+        } else {
+            restarGame();
+        }
     }
-    
-    public void showRecords(List<String> ptopFive) throws IOException{
-        Object[] options1 = { "Volver A Jugar", "Salir" };
+
+    public void showRecords(List<String> ptopFive) throws IOException {
+        Object[] options1 = {"Volver A Jugar", "Salir"};
         int count = 0;
         JPanel panel = new JPanel();
         for (String element : ptopFive) {
             panel.add(new JLabel(element));
         }
         int result = JOptionPane.showOptionDialog(this, panel, "Los mejores 5",
-        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-        options1, null);
-            if (result == JOptionPane.YES_OPTION) 
-            {
-                restarGame();
-            }
-            else{
-                System.exit(0);
-            }
+                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                options1, null);
+        if (result == JOptionPane.YES_OPTION) {
+            restarGame();
+        } else {
+            System.exit(0);
+        }
     }
 
-     public void showGameOver() throws IOException{
-        Object[] options1 = { "Volver A Jugar", "Salir" };
+    public void showGameOver() throws IOException {
+        Object[] options1 = {"Volver A Jugar", "Salir"};
         int count = 0;
         JPanel panel = new JPanel();
         panel.add(new JLabel("Ha Perdido!"));
         int result = JOptionPane.showOptionDialog(this, panel, "Fin del Juego",
-        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-        options1, null);
-            if (result == JOptionPane.YES_OPTION) 
-            {
-                restarGame();
-            }
-            else{
-                System.exit(0);
-            }
+                JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                options1, null);
+        if (result == JOptionPane.YES_OPTION) {
+            restarGame();
+        } else {
+            System.exit(0);
+        }
     }
     public static final String SUN_JAVA_COMMAND = "sun.java.command";
 
-/**
- * Restart the current Java application
- * @param runBeforeRestart some custom code to be run before restarting
- * @throws IOException
- */
+    /**
+     * Restart the current Java application
+     *
+     * @param runBeforeRestart some custom code to be run before restarting
+     * @throws IOException
+     */
     public static void restarGame() throws IOException {
-    try {
-    String java = System.getProperty("java.home") + "/bin/java";
-    List<String> vmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
-    StringBuffer vmArgsOneLine = new StringBuffer();
-    for (String arg : vmArguments) 
-    {
-        if (!arg.contains("-agentlib")) 
-        {
-        vmArgsOneLine.append(arg);
-        vmArgsOneLine.append(" ");
-        }
-    }
-    final StringBuffer cmd = new StringBuffer("\"" + java + "\" " + vmArgsOneLine);
+        try {
+            String java = System.getProperty("java.home") + "/bin/java";
+            List<String> vmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
+            StringBuffer vmArgsOneLine = new StringBuffer();
+            for (String arg : vmArguments) {
+                if (!arg.contains("-agentlib")) {
+                    vmArgsOneLine.append(arg);
+                    vmArgsOneLine.append(" ");
+                }
+            }
+            final StringBuffer cmd = new StringBuffer("\"" + java + "\" " + vmArgsOneLine);
 
-    String[] mainCommand = System.getProperty(SUN_JAVA_COMMAND).split(" ");
-    if (mainCommand[0].endsWith(".jar")) 
-    {
-        cmd.append("-jar " + new File(mainCommand[0]).getPath());
-    } 
-    else 
-    {
-        cmd.append("-cp \"" + System.getProperty("java.class.path") + "\" " + mainCommand[0]);
-    }
-    for (int i = 1; i < mainCommand.length; i++) 
-    {
-        cmd.append(" ");
-        cmd.append(mainCommand[i]);
-    }
-    Runtime.getRuntime().addShutdownHook(new Thread() {
-    @Override
-    public void run() 
-    {
-    try {
-        Runtime.getRuntime().exec(cmd.toString());
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-    }
-    });
-    System.exit(0);
-    } catch (Exception e) {
-    throw new IOException("Error while trying to restart the application", e);
+            String[] mainCommand = System.getProperty(SUN_JAVA_COMMAND).split(" ");
+            if (mainCommand[0].endsWith(".jar")) {
+                cmd.append("-jar " + new File(mainCommand[0]).getPath());
+            } else {
+                cmd.append("-cp \"" + System.getProperty("java.class.path") + "\" " + mainCommand[0]);
+            }
+            for (int i = 1; i < mainCommand.length; i++) {
+                cmd.append(" ");
+                cmd.append(mainCommand[i]);
+            }
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Runtime.getRuntime().exec(cmd.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            System.exit(0);
+        } catch (Exception e) {
+            throw new IOException("Error while trying to restart the application", e);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
