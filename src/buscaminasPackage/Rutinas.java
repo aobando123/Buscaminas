@@ -1,4 +1,4 @@
-/**
+/*
  * Nombre del programa: Buscaminas Rutinas
  * Descripción: Esta parte de la paliccaion se encarga de la logica del juego
  * Fecha:9 de febrero del 2017

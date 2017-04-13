@@ -1,7 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Nombre del programa: Buscaminas Rutinas
+ * Descripción: Esta parte de la aplicacion se encarga de la interfaz grafica
+ * Fecha:9 de Abril del 2017
+ * Autor: Adrián Obando Leitón y Jose Solano
+ * Fecha de modificación: 12-04-17
+ * Modificado por: Adrián Obando Leitón
  */
 package buscaminasPackage;
 
