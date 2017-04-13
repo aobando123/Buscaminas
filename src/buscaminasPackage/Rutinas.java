@@ -394,8 +394,8 @@ public class Rutinas {
     }
 
     /**
-     * *
-     *
+     * Funcion que retona la lista de los mejores 5 ganadores
+     *La lista se muestra en el UI
      */
     public static List<String> winners() throws FileNotFoundException, IOException {
         List<String> elemntsOnFile = new ArrayList();

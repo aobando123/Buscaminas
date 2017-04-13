@@ -457,10 +457,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     }
     public static final String SUN_JAVA_COMMAND = "sun.java.command";
 
-    /**
-     * Restart the current Java application
-     *
-     * @param runBeforeRestart some custom code to be run before restarting
+    /*
+     * Reiniciar la apliccaion Java
      * @throws IOException
      */
     public static void restarGame() throws IOException {
