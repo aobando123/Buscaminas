@@ -8,3 +8,5 @@ Ft 5
 Ga 8
 try 15
 Alf 5
+Eli 21
+Gt 17

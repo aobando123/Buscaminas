@@ -146,7 +146,11 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 btn.setBackground(new java.awt.Color(255, 153, 51));
                 btn.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
-                        buttonClicked(evt);
+                        try {
+                            buttonClicked(evt);
+                        } catch (IOException ex) {
+                            Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 });
                 pnJuego5.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
@@ -204,14 +208,18 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             valueBtn = Rutinas.checkBackDashboard(element);
             changeButton(element, valueBtn);
         }
-        gameOverBySumition();
+        try {
+            gameOverBySumition();
+        } catch (IOException ex) {
+            Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAllDashboardActionPerformed
 
     private void btnFaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFaceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnFaceActionPerformed
   
-    private void buttonClicked(java.awt.event.MouseEvent click) {
+    private void buttonClicked(java.awt.event.MouseEvent click) throws IOException {
         String btnName = "";
         elementsToShowNumbers.clear();
         elementsToShow.clear();
@@ -240,10 +248,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 {
                     showAllMines();
                     changeButton("bst", 11);
-                    JOptionPane.showMessageDialog(this, "Lo siento, has perdido");
-                    System.exit(0);
-                    //todo: quitar el exit y cambiarlo por un reinicio o
-                    //por un mensaje que le de opcion de reiniciar o salir
+                    showGameOver();
                 }
                 if(Rutinas.isWinner()){
                     changeButton("bst", 12);
@@ -362,9 +367,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         return resizeIcon;
     }
     
-    private void gameOverBySumition(){
+    private void gameOverBySumition() throws IOException{
         changeButton("bst", 11);
-        JOptionPane.showMessageDialog(this, "Se ha rendido");
+        showGameOver();
     }
     
     private boolean isLastLetter(String buttonName, String lastLetter){
@@ -449,6 +454,22 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
     }
 
+     public void showGameOver() throws IOException{
+        Object[] options1 = { "Volver A Jugar", "Salir" };
+        int count = 0;
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Ha Perdido!"));
+        int result = JOptionPane.showOptionDialog(this, panel, "Fin del Juego",
+        JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+        options1, null);
+            if (result == JOptionPane.YES_OPTION) 
+            {
+                restarGame();
+            }
+            else{
+                System.exit(0);
+            }
+    }
     public static final String SUN_JAVA_COMMAND = "sun.java.command";
 
 /**
@@ -501,6 +522,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     throw new IOException("Error while trying to restart the application", e);
         }
     }
+    
     /**
      * @param args the command line arguments
      */
