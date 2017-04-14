@@ -51,6 +51,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         btnNormal = new javax.swing.JButton();
         btnDificil = new javax.swing.JButton();
         lblSeleccionar = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         pnJuego5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
@@ -63,13 +64,15 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnPrincipal.setBackground(new java.awt.Color(51, 102, 255));
         pnPrincipal.setLayout(new java.awt.CardLayout());
 
+        pnInicio.setBackground(new java.awt.Color(221, 255, 154));
         pnInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        lblTitulo.setText("Buscaminas");
-        pnInicio.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, -1, -1));
+        lblTitulo.setFont(new java.awt.Font("Impact", 1, 48)); // NOI18N
+        lblTitulo.setText("BUSCAMINAS");
+        pnInicio.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
 
-        btnNormal.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnNormal.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
+        btnNormal.setForeground(new java.awt.Color(0, 0, 0));
         btnNormal.setText("Normal");
         btnNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,8 +81,9 @@ public class UIAplicacion extends javax.swing.JFrame {
         });
         pnInicio.add(btnNormal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 150, 70));
 
-        btnDificil.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        btnDificil.setText("Difìcil");
+        btnDificil.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
+        btnDificil.setForeground(new java.awt.Color(0, 0, 0));
+        btnDificil.setText("Dificil");
         btnDificil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDificilActionPerformed(evt);
@@ -87,12 +91,16 @@ public class UIAplicacion extends javax.swing.JFrame {
         });
         pnInicio.add(btnDificil, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 230, 150, 70));
 
-        lblSeleccionar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblSeleccionar.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
         lblSeleccionar.setText("Seleccione dificultad");
-        pnInicio.add(lblSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, -1, -1));
+        pnInicio.add(lblSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
+        pnInicio.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
 
         pnPrincipal.add(pnInicio, "card2");
 
+        pnJuego5.setBackground(new java.awt.Color(221, 255, 154));
         pnJuego5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -101,7 +109,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         jLabel1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         pnJuego5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 120, 120));
 
-        lblquatity.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblquatity.setFont(new java.awt.Font("Impact", 1, 24)); // NOI18N
         lblquatity.setText("5");
         pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
 
@@ -133,6 +141,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
     private void initializePnJuego(int psize) {
         //comment
+        JLabel lblFondo= new JLabel();
         int posx = 10;
         int posy = 10;
         int length;
@@ -147,7 +156,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                 JButton btn = new JButton();
                 name = "b" + i + j;
                 btn.setName(name);
-                btn.setBackground(new java.awt.Color(255, 153, 51));
+                btn.setIcon(getResizeImage("inicio.png", length, length));
                 btn.addMouseListener(new java.awt.event.MouseAdapter() {
                     public void mouseClicked(java.awt.event.MouseEvent evt) {
                         try {
@@ -165,6 +174,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             posy += length;
         }
         lblquatity.setText("" + psize);
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
+        pnJuego5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
+        
 
     }
 
@@ -248,6 +260,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                     changeButton(btnName, valueBehindButton);
                 } else {
                     showAllMines();
+                    changeButton(btnName, 13);
                     changeButton("bst", 11);
                     showGameOver();
                 }
@@ -305,6 +318,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         } else if (pvalor == 10) {
             btn = setImage(btn, pvalor);
             buttonMap.replace(bName, btn);
+        }else if(pvalor == 13){
+         btn = setImage(btn, pvalor);
+         buttonMap.replace(bName, btn);
         }
 
     }
@@ -318,13 +334,15 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             width = 40;
             height = 40;
         }
-        String nameImage;
         switch (pvalor) {
             case 11:
                 btn.setIcon(getResizeImage("face3.png", width, height));
                 break;
             case 12:
                 btn.setIcon(getResizeImage("face2.png", width, height));
+                break;
+            case 13:
+                btn.setDisabledIcon(getResizeImage("bombaroja.png", width, height));
                 break;
             default:
                 btn.setDisabledIcon(getResizeImage(pvalor + ".png", width, height));
@@ -342,7 +360,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                     lblquatity.setText("" + Rutinas.addMines());
                 } else if (isLastLetter(btn.getName(), "?")) {
                     btn.setName(btn.getName().substring(0, 3));
-                    btn.setIcon(null);
+                    btn.setIcon(getResizeImage("inicio.png", width, height));
 
                 } else {
                     lblquatity.setText("" + Rutinas.sustractMines());
@@ -541,6 +559,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private javax.swing.JButton btnFace;
     private javax.swing.JButton btnNormal;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblquatity;
