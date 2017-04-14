@@ -321,6 +321,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }else if(pvalor == 13){
          btn = setImage(btn, pvalor);
          buttonMap.replace(bName, btn);
+        }else if(pvalor==9 && isLastLetter(btn.getName(), "f")){
+         btn = setImage(btn, pvalor);
+         buttonMap.replace(bName, btn);
         }
 
     }
