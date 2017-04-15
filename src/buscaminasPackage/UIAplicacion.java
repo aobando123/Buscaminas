@@ -142,7 +142,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
     private void initializePnJuego(int psize) {
         //comment
-        JLabel lblFondo= new JLabel();
+        JLabel lblFondo = new JLabel();
         int posx = 10;
         int posy = 10;
         int length;
@@ -177,15 +177,14 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         lblquatity.setText("" + psize);
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
         pnJuego5.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
-        
 
     }
 
 
     private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
-
-        Rutinas.initDashboard(5);
         initializePnJuego(5);
+        Rutinas.initDashboard(5);
+
         pnPrincipal.remove(pnInicio);
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
@@ -300,8 +299,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
     private void showAllMines() {
         int valueBtn;
-        elementsToShowNumbers = Rutinas.getAllMines();
-        for (String element : elementsToShowNumbers) {
+
+        for (String element : Rutinas.getAllMines()) {
             valueBtn = Rutinas.checkBackDashboard(element);
             changeButton(element, valueBtn);
         }
@@ -319,15 +318,15 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         } else if (pvalor == 10) {
             btn = setImage(btn, pvalor);
             buttonMap.replace(bName, btn);
-        }else if(pvalor == 13){
-         btn = setImage(btn, pvalor);
-         buttonMap.replace(bName, btn);
-        }else if(pvalor==9 && isLastLetter(btn.getName(), "f")){
-         btn = setImage(btn, pvalor);
-         buttonMap.replace(bName, btn);
-        }else if(pvalor == 14){
-         btn = setImage(btn, pvalor);
-         buttonMap.replace(bName, btn);
+        } else if (pvalor == 13) {
+            btn = setImage(btn, pvalor);
+            buttonMap.replace(bName, btn);
+        } else if (pvalor == 9 && isLastLetter(btn.getName(), "f")) {
+            btn = setImage(btn, pvalor);
+            buttonMap.replace(bName, btn);
+        } else if (pvalor == 14) {
+            btn = setImage(btn, pvalor);
+            buttonMap.replace(bName, btn);
         }
 
     }
@@ -351,7 +350,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             case 13:
                 btn.setDisabledIcon(getResizeImage("bombaroja.png", width, height));
                 break;
-            case  14:
+            case 14:
                 btn.setIcon(getResizeImage("face1.png", 60, 60));
                 break;
             default:
@@ -489,7 +488,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
      * Reiniciar la apliccaion Java
      * @throws IOException
      */
-   /* public static void restarGame() throws IOException {
+ /* public static void restarGame() throws IOException {
         try {
             String java = System.getProperty("java.home") + "/bin/java";
             List<String> vmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
@@ -527,32 +526,29 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             throw new IOException("Error while trying to restart the application", e);
         }
     }*/
-    
-    
-    private void restarGame(){
-         Rutinas.cleanVariables();
-     pnPrincipal.remove(pnJuego5);
-     pnInicio.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
-     pnPrincipal.add(pnInicio);   
-     pnPrincipal.repaint();
-     pnPrincipal.revalidate();
-     cleanPnGame();
+    private void restarGame() {
+        Rutinas.cleanVariables();
+        pnPrincipal.remove(pnJuego5);
+        pnInicio.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
+        pnPrincipal.add(pnInicio);
+        pnPrincipal.repaint();
+        pnPrincipal.revalidate();
+        cleanPnGame();
 
- 
     }
-    
-    private void cleanPnGame(){
-    JButton b;
+
+    private void cleanPnGame() {
+        JButton b;
         for (int i = 0; i < Rutinas.getDashboardSize(); i++) {
             for (int j = 0; j < Rutinas.getDashboardSize(); j++) {
-                b= buttonMap.remove("b"+i+j);
+                b = buttonMap.remove("b" + i + j);
                 pnJuego5.remove(b);
             }
         }
-    buttonMap.clear();
-    buttonMap.put("bst", btnFace);
-    changeButton("bst",14);
-    numberOfClicks=0;
+        buttonMap.clear();
+        buttonMap.put("bst", btnFace);
+        changeButton("bst", 14);
+        numberOfClicks = 0;
     }
 
     /**

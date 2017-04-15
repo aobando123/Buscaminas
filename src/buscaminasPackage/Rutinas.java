@@ -31,6 +31,7 @@ public class Rutinas {
     static int cantMines;
     static int sizeMat;
     static int spacesToWin;
+    private static String[] arrayMines;
     private static List<String> listSpacesWithCero = new ArrayList();
     private static List<String> listNumbersAround = new ArrayList();
     private static List<String> listAllElements = new ArrayList();
@@ -49,6 +50,9 @@ public class Rutinas {
         spacesToWin = (sizeMat * sizeMat) - cantMines;
         generateMines();
         trackMine();
+        arrayMines= new String[listMines.size()];
+        arrayMines = listMines.toArray(arrayMines);
+
     }
 
     //Clase generada solo para ver la matriz
@@ -309,8 +313,8 @@ public class Rutinas {
      *
      * @return
      */
-    static List<String> getAllMines() {
-        return listMines;
+    static String[] getAllMines() {
+        return arrayMines;
     }
 
     /**
@@ -449,5 +453,6 @@ public class Rutinas {
         listNumbersAround.clear();
         listAllElements.clear();
         listMines.clear();
+
     }
 }
