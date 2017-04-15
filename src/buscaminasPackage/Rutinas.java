@@ -443,4 +443,11 @@ public class Rutinas {
         return topFive;
 
     }
+    
+    static void cleanVariables() {
+        listSpacesWithCero.clear();
+        listNumbersAround.clear();
+        listAllElements.clear();
+        listMines.clear();
+    }
 }

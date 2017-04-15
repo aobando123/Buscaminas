@@ -51,7 +51,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         btnNormal = new javax.swing.JButton();
         btnDificil = new javax.swing.JButton();
         lblSeleccionar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblFondo1 = new javax.swing.JLabel();
         pnJuego5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
@@ -95,8 +95,8 @@ public class UIAplicacion extends javax.swing.JFrame {
         lblSeleccionar.setText("Seleccione dificultad");
         pnInicio.add(lblSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
-        pnInicio.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
+        lblFondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
+        pnInicio.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
 
         pnPrincipal.add(pnInicio, "card2");
 
@@ -113,13 +113,14 @@ public class UIAplicacion extends javax.swing.JFrame {
         lblquatity.setText("5");
         pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
 
+        btnAllDashboard.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         btnAllDashboard.setText("Mostrar Tablero");
         btnAllDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllDashboardActionPerformed(evt);
             }
         });
-        pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 290, -1, -1));
+        pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 282, 120, 40));
 
         btnFace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/face1.png"))); // NOI18N
         btnFace.setName("bst"); // NOI18N
@@ -175,7 +176,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         lblquatity.setText("" + psize);
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
-        pnJuego5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
+        pnJuego5.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
         
 
     }
@@ -324,6 +325,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }else if(pvalor==9 && isLastLetter(btn.getName(), "f")){
          btn = setImage(btn, pvalor);
          buttonMap.replace(bName, btn);
+        }else if(pvalor == 14){
+         btn = setImage(btn, pvalor);
+         buttonMap.replace(bName, btn);
         }
 
     }
@@ -339,13 +343,16 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         switch (pvalor) {
             case 11:
-                btn.setIcon(getResizeImage("face3.png", width, height));
+                btn.setIcon(getResizeImage("face3.png", 60, 60));
                 break;
             case 12:
-                btn.setIcon(getResizeImage("face2.png", width, height));
+                btn.setIcon(getResizeImage("face2.png", 60, 60));
                 break;
             case 13:
                 btn.setDisabledIcon(getResizeImage("bombaroja.png", width, height));
+                break;
+            case  14:
+                btn.setIcon(getResizeImage("face1.png", 60, 60));
                 break;
             default:
                 btn.setDisabledIcon(getResizeImage(pvalor + ".png", width, height));
@@ -482,7 +489,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
      * Reiniciar la apliccaion Java
      * @throws IOException
      */
-    public static void restarGame() throws IOException {
+   /* public static void restarGame() throws IOException {
         try {
             String java = System.getProperty("java.home") + "/bin/java";
             List<String> vmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
@@ -519,6 +526,33 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         } catch (Exception e) {
             throw new IOException("Error while trying to restart the application", e);
         }
+    }*/
+    
+    
+    private void restarGame(){
+         Rutinas.cleanVariables();
+     pnPrincipal.remove(pnJuego5);
+     pnInicio.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
+     pnPrincipal.add(pnInicio);   
+     pnPrincipal.repaint();
+     pnPrincipal.revalidate();
+     cleanPnGame();
+
+ 
+    }
+    
+    private void cleanPnGame(){
+    JButton b;
+        for (int i = 0; i < Rutinas.getDashboardSize(); i++) {
+            for (int j = 0; j < Rutinas.getDashboardSize(); j++) {
+                b= buttonMap.remove("b"+i+j);
+                pnJuego5.remove(b);
+            }
+        }
+    buttonMap.clear();
+    buttonMap.put("bst", btnFace);
+    changeButton("bst",14);
+    numberOfClicks=0;
     }
 
     /**
@@ -562,7 +596,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private javax.swing.JButton btnFace;
     private javax.swing.JButton btnNormal;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblFondo1;
     private javax.swing.JLabel lblSeleccionar;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblquatity;
