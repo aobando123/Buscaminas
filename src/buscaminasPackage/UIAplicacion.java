@@ -50,7 +50,7 @@ public class UIAplicacion extends javax.swing.JFrame {
         btnDificil = new javax.swing.JButton();
         lblSeleccionar = new javax.swing.JLabel();
         lblFondo1 = new javax.swing.JLabel();
-        pnJuego5 = new javax.swing.JPanel();
+        pnJuego = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblquatity = new javax.swing.JLabel();
         btnAllDashboard = new javax.swing.JButton();
@@ -96,18 +96,18 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         pnPrincipal.add(pnInicio, "card2");
 
-        pnJuego5.setBackground(new java.awt.Color(221, 255, 154));
-        pnJuego5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnJuego.setBackground(new java.awt.Color(221, 255, 154));
+        pnJuego.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/min.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        pnJuego5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 120, 120));
+        pnJuego.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 120, 120));
 
         lblquatity.setFont(new java.awt.Font("Impact", 1, 24)); // NOI18N
         lblquatity.setText("5");
-        pnJuego5.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
+        pnJuego.add(lblquatity, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
 
         btnAllDashboard.setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         btnAllDashboard.setText("Mostrar Tablero");
@@ -116,14 +116,14 @@ public class UIAplicacion extends javax.swing.JFrame {
                 btnAllDashboardActionPerformed(evt);
             }
         });
-        pnJuego5.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 282, 120, 40));
+        pnJuego.add(btnAllDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 282, 120, 40));
 
         btnFace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/face1.png"))); // NOI18N
         btnFace.setName("bst"); // NOI18N
-        pnJuego5.add(btnFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 50, 50));
+        pnJuego.add(btnFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 50, 50));
         buttonMap.put(btnFace.getName(), btnFace);
 
-        pnPrincipal.add(pnJuego5, "card3");
+        pnPrincipal.add(pnJuego, "card3");
 
         getContentPane().add(pnPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 390));
 
@@ -131,6 +131,11 @@ public class UIAplicacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
+/***
+ * Procedimiento: Incializa el panel de juego, dependiendo de la dificultad
+ * agrega x cantidad de botones, ademas todo correspondiente a la interfaz
+ * @param psize 
+ */
     private void initializePnJuego(int psize) {
         //comment
         JLabel lblFondo = new JLabel();
@@ -153,7 +158,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
                         }
                     }
                 });
-                pnJuego5.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
+                pnJuego.add(btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(posx, posy, length, length));
                 buttonMap.put(name, btn);
                 posx += length;
             }
@@ -162,9 +167,14 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         lblquatity.setText("" + psize);
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
-        pnJuego5.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
+        pnJuego.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
     }
-
+/***
+ * Procedimiento: define el tamaño de las imagenes y botones en base a la 
+ * dificultad elegida
+ * @param psize
+ * @return 
+ */
     private int getWindowSize(int psize)
     {
         int length = 0;
@@ -175,6 +185,10 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         return length;
     }
+    /***
+     * Procedimiento: inicializa el juego en dificultad normal
+     * @param evt 
+     */
     private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
         initializePnJuego(5);
         Rutinas.initDashboard(5);
@@ -187,15 +201,20 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.out.println(" ");
         }
     }//GEN-LAST:event_btnNormalActionPerformed
-
+/***
+ * Procedimiento: cambia de panel del principal al del juego
+ */
     private void btnDrawDashboard()
     {
         pnPrincipal.remove(pnInicio);
-        pnPrincipal.add(pnJuego5);
+        pnPrincipal.add(pnJuego);
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
     }
-    
+      /***
+     * Procedimiento: inicializa el juego en dificultad dificil
+     * @param evt 
+     */
     private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
 
         Rutinas.initDashboard(8);
@@ -208,7 +227,11 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.out.println(" ");
         }
     }//GEN-LAST:event_btnDificilActionPerformed
-
+/***
+ * Procedimiento: Muestra todo el tablero al darle click  en el boton iniciar
+ * tablero
+ * @param evt 
+ */
     private void btnAllDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllDashboardActionPerformed
         int valueBtn;
         elementsToShow = Rutinas.giveUpPlay();
@@ -222,7 +245,13 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAllDashboardActionPerformed
-
+/***
+ * Procedimiento: al darle click a uno de los campos del tablero llama todos 
+ * los procediemientos necesarios para mostrar lo que hay adentro ademas de c
+ * conseguir el boton clickeado
+ * @param click
+ * @throws IOException 
+ */
     private void buttonClicked(java.awt.event.MouseEvent click) throws IOException {
         String btnName = "";
         elementsToShowNumbers.clear();
@@ -264,7 +293,11 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             }
         }
     }
-
+/***
+ * Procedimiento: muestra todos los botones que estan alrededor si se clickeo
+ * un cero
+ * @param pbtnName 
+ */
     private void showNearZeroButton(String pbtnName) {
         int row = 0, column = 0, valueBtn = 0;
         row = Character.getNumericValue(pbtnName.charAt(1));
@@ -283,7 +316,9 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         Rutinas.cleanAllLists();
     }
-
+/***
+ * Procedimiento: muestra todas las minas al darle click en una
+ */
     private void showAllMines() {
         int valueBtn;
 
@@ -292,7 +327,13 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             changeButton(element, valueBtn);
         }
     }
-
+/***
+ * 
+ * Procedimiento: Verifica que imagen debe ponerese de fondo en base al valor
+ * que hay detras en el matriz de valores
+ * @param pName
+ * @param pvalor 
+ */
     private void changeButton(String pName, int pvalor) {
         JButton btn;
         String imgName, bName;
@@ -316,7 +357,12 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             buttonMap.replace(bName, btn);
         }
     }
-
+/***
+ * Procedimiento: Setea la imagen correspondiente 
+ * @param btn
+ * @param pvalor
+ * @return 
+ */
     private JButton setImage(JButton btn, int pvalor) {
         int width = getWindowSize(Rutinas.getDashboardSize());
         int height =  width;
@@ -360,7 +406,14 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         }
         return btn;
     }
-
+/***
+ * Procedimiento: Reajusta el tamaño de la imagen en base al ancho y alto que 
+ * se solicite
+ * @param imageName
+ * @param pwidth
+ * @param pheight
+ * @return 
+ */
     private ImageIcon getResizeImage(String imageName, int pwidth, int pheight) {
 
         ImageIcon icoDefault = new ImageIcon(getClass().getResource("/buscaminasPackage/" + imageName));
@@ -370,18 +423,30 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         return resizeIcon;
     }
 
+    /***
+     * Procedimiento:cambia la cara a muerta y da un gameover
+     * @throws IOException 
+     */    
     private void gameOverBySumition() throws IOException {
         changeButton("bst", 11);
         showGameOver();
     }
-
+/**
+ * Procedimiento: Busca si en la ultima letra del nombre hay la letra que 
+ * se solicita
+ * @param buttonName
+ * @param lastLetter
+ * @return 
+ */
     private boolean isLastLetter(String buttonName, String lastLetter) {
         if (lastLetter.equals(buttonName.substring(buttonName.length() - 1))) {
             return true;
         }
         return false;
     }
-
+/***
+ * Procedimiento: agrega a los records la puntuacion del jugador
+ */
     private void addToRecords() {
         String playerName;
         boolean isCompleted;
@@ -408,7 +473,10 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.exit(0);
         }
     }
-
+/***
+ * Procedimiento: muestra el mensaje luego de agregar el nombre 
+ * @throws IOException 
+ */
     private void showFinalMessage() throws IOException {
         String playerName;
         List<String> topFive = new ArrayList();
@@ -429,7 +497,11 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             restarGame();
         }
     }
-
+/***
+ * Procedimiento: muestra los records
+ * @param ptopFive
+ * @throws IOException 
+ */
     public void showRecords(List<String> ptopFive) throws IOException {
         Object[] options1 = {"Volver A Jugar", "Salir"};
         int count = 0;
@@ -446,7 +518,10 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.exit(0);
         }
     }
-
+/**
+ * Procedimiento: muestra el mensaje que ha perdido
+ * @throws IOException 
+ */
     public void showGameOver() throws IOException {
         Object[] options1 = {"Volver A Jugar", "Salir"};
         int count = 0;
@@ -461,22 +536,27 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.exit(0);
         }
     }
+    /**
+     * Procedimiento: reinicia el juego
+     */
     private void restarGame() {
         Rutinas.cleanVariables();
-        pnPrincipal.remove(pnJuego5);
+        pnPrincipal.remove(pnJuego);
         pnInicio.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
         pnPrincipal.add(pnInicio);
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
         cleanPnGame();
     }
-
+/**
+ * Procedimiento: Limpia el panel de juego ademas del mapa de botones 
+ */
     private void cleanPnGame() {
         JButton b;
         for (int i = 0; i < Rutinas.getDashboardSize(); i++) {
             for (int j = 0; j < Rutinas.getDashboardSize(); j++) {
                 b = buttonMap.remove("b" + i + j);
-                pnJuego5.remove(b);
+                pnJuego.remove(b);
             }
         }
         buttonMap.clear();
@@ -531,7 +611,7 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblquatity;
     private javax.swing.JPanel pnInicio;
-    private javax.swing.JPanel pnJuego5;
+    private javax.swing.JPanel pnJuego;
     private javax.swing.JPanel pnPrincipal;
     // End of variables declaration//GEN-END:variables
 }
