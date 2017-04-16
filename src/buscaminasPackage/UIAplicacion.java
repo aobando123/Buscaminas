@@ -9,9 +9,7 @@
 package buscaminasPackage;
 
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +70,6 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnInicio.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
 
         btnNormal.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
-        btnNormal.setForeground(new java.awt.Color(0, 0, 0));
         btnNormal.setText("Normal");
         btnNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +79,6 @@ public class UIAplicacion extends javax.swing.JFrame {
         pnInicio.add(btnNormal, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 150, 70));
 
         btnDificil.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
-        btnDificil.setForeground(new java.awt.Color(0, 0, 0));
         btnDificil.setText("Dificil");
         btnDificil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,11 +120,6 @@ public class UIAplicacion extends javax.swing.JFrame {
 
         btnFace.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/face1.png"))); // NOI18N
         btnFace.setName("bst"); // NOI18N
-        btnFace.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFaceActionPerformed(evt);
-            }
-        });
         pnJuego5.add(btnFace, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 50, 50));
         buttonMap.put(btnFace.getName(), btnFace);
 
@@ -230,10 +221,6 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             Logger.getLogger(UIAplicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAllDashboardActionPerformed
-
-    private void btnFaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFaceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnFaceActionPerformed
 
     private void buttonClicked(java.awt.event.MouseEvent click) throws IOException {
         String btnName = "";
@@ -482,50 +469,6 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             System.exit(0);
         }
     }
-    public static final String SUN_JAVA_COMMAND = "sun.java.command";
-
-    /*
-     * Reiniciar la apliccaion Java
-     * @throws IOException
-     */
- /* public static void restarGame() throws IOException {
-        try {
-            String java = System.getProperty("java.home") + "/bin/java";
-            List<String> vmArguments = ManagementFactory.getRuntimeMXBean().getInputArguments();
-            StringBuffer vmArgsOneLine = new StringBuffer();
-            for (String arg : vmArguments) {
-                if (!arg.contains("-agentlib")) {
-                    vmArgsOneLine.append(arg);
-                    vmArgsOneLine.append(" ");
-                }
-            }
-            final StringBuffer cmd = new StringBuffer("\"" + java + "\" " + vmArgsOneLine);
-
-            String[] mainCommand = System.getProperty(SUN_JAVA_COMMAND).split(" ");
-            if (mainCommand[0].endsWith(".jar")) {
-                cmd.append("-jar " + new File(mainCommand[0]).getPath());
-            } else {
-                cmd.append("-cp \"" + System.getProperty("java.class.path") + "\" " + mainCommand[0]);
-            }
-            for (int i = 1; i < mainCommand.length; i++) {
-                cmd.append(" ");
-                cmd.append(mainCommand[i]);
-            }
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Runtime.getRuntime().exec(cmd.toString());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            System.exit(0);
-        } catch (Exception e) {
-            throw new IOException("Error while trying to restart the application", e);
-        }
-    }*/
     private void restarGame() {
         Rutinas.cleanVariables();
         pnPrincipal.remove(pnJuego5);
