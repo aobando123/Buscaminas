@@ -52,13 +52,11 @@ public class Rutinas {
         trackMine();
         arrayMines= new String[listMines.size()];
         arrayMines = listMines.toArray(arrayMines);
-
     }
 
     //Clase generada solo para ver la matriz
     public static int mostrarAyuda(int i, int j) {
         return dashboard[i][j];
-
     }
 
     /**
@@ -204,7 +202,6 @@ public class Rutinas {
         boolean isAlreadyInserted = listSpacesWithCero.contains(butonToShow);
         if (!isAlreadyInserted) {
             listSpacesWithCero.add(butonToShow);
-
         }
     }
 
@@ -221,7 +218,6 @@ public class Rutinas {
         boolean isAlreadyInserted = listNumbersAround.contains(butonToShow);
         if (!isAlreadyInserted) {
             listNumbersAround.add(butonToShow);
-
         }
     }
 
@@ -399,7 +395,7 @@ public class Rutinas {
 
     /**
      * Funcion que retona la lista de los mejores 5 ganadores
-     *La lista se muestra en el UI
+     * La lista se muestra en el UI
      */
     public static List<String> winners() throws FileNotFoundException, IOException {
         List<String> elemntsOnFile = new ArrayList();
@@ -440,12 +436,10 @@ public class Rutinas {
         if (limit > 5) {
             limit = 5;
         }
-
         for (i = 0; i < limit; i++) {
             topFive.add((i + 1) + ". " + nameWinners[i] + " " + scores[i] + ".pts ");
         }
         return topFive;
-
     }
     
     static void cleanVariables() {
@@ -453,6 +447,5 @@ public class Rutinas {
         listNumbersAround.clear();
         listAllElements.clear();
         listMines.clear();
-
     }
 }

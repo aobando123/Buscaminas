@@ -20,3 +20,4 @@ JK 35
 ClamardoApesta 24
 Fran 30
 Tri 6
+Fran 14

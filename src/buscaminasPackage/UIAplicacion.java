@@ -136,13 +136,8 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         JLabel lblFondo = new JLabel();
         int posx = 10;
         int posy = 10;
-        int length;
+        int length = getWindowSize(psize);
         String name;
-        if (psize == 5) {
-            length = 60;
-        } else {
-            length = 40;
-        }
         for (int i = 0; i < psize; i++) {
             for (int j = 0; j < psize; j++) {
                 JButton btn = new JButton();
@@ -168,41 +163,47 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         lblquatity.setText("" + psize);
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/buscaminasPackage/Fondo.png"))); // NOI18N
         pnJuego5.add(lblFondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -14, 640, 420));
-
     }
 
-
+    private int getWindowSize(int psize)
+    {
+        int length = 0;
+        if (psize == 5) {
+            length = 60;
+        } else {
+            length = 40;
+        }
+        return length;
+    }
     private void btnNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNormalActionPerformed
         initializePnJuego(5);
         Rutinas.initDashboard(5);
-
-        pnPrincipal.remove(pnInicio);
-        pnPrincipal.add(pnJuego5);
-        pnPrincipal.repaint();
-        pnPrincipal.revalidate();
-        int valueDas = 0;
+        btnDrawDashboard();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                valueDas = Rutinas.mostrarAyuda(i, j);
-                System.out.print(" " + valueDas + " ");
+
+                System.out.print(" " + Rutinas.mostrarAyuda(i, j) + " ");
             }
             System.out.println(" ");
         }
     }//GEN-LAST:event_btnNormalActionPerformed
 
-    private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
-
-        Rutinas.initDashboard(8);
-        initializePnJuego(8);
+    private void btnDrawDashboard()
+    {
         pnPrincipal.remove(pnInicio);
         pnPrincipal.add(pnJuego5);
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
-        int valueDas = 0;
+    }
+    
+    private void btnDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDificilActionPerformed
+
+        Rutinas.initDashboard(8);
+        initializePnJuego(8);
+        btnDrawDashboard();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                valueDas = Rutinas.mostrarAyuda(i, j);
-                System.out.print(" " + valueDas + " ");
+                System.out.print(" " + Rutinas.mostrarAyuda(i, j) + " ");
             }
             System.out.println(" ");
         }
@@ -262,7 +263,6 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
 
             }
         }
-
     }
 
     private void showNearZeroButton(String pbtnName) {
@@ -315,18 +315,11 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
             btn = setImage(btn, pvalor);
             buttonMap.replace(bName, btn);
         }
-
     }
 
     private JButton setImage(JButton btn, int pvalor) {
-        int width, height;
-        if (Rutinas.getDashboardSize() == 5) {
-            width = 60;
-            height = 60;
-        } else {
-            width = 40;
-            height = 40;
-        }
+        int width = getWindowSize(Rutinas.getDashboardSize());
+        int height =  width;
         switch (pvalor) {
             case 11:
                 btn.setIcon(getResizeImage("face3.png", 60, 60));
@@ -374,7 +367,6 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         Image imageDefault = icoDefault.getImage();
         Image resizeImage = imageDefault.getScaledInstance(pwidth, pheight, Image.SCALE_SMOOTH);
         ImageIcon resizeIcon = new ImageIcon(resizeImage);
-
         return resizeIcon;
     }
 
@@ -477,7 +469,6 @@ private Map<String, JButton> buttonMap = new HashMap<String, JButton>();
         pnPrincipal.repaint();
         pnPrincipal.revalidate();
         cleanPnGame();
-
     }
 
     private void cleanPnGame() {
